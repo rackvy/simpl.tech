@@ -1,0 +1,17 @@
+{
+  "name": "simpl.tech",
+  "version": "1.0.0",
+  "description": "Simpl Platform – удобная платформа для создания интернет-магазина.",
+  "main": "index.js",
+  "scripts": {
+    "scss": "node-sass --output-style compressed -o dist/css src/scss"
+  },
+  "author": "Alexey Shelikhov",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "node-sass": "^4.14.1",
+    "postcss-cli": "^7.1.1",
+    "stylelint": "^13.6.1"
+  }
+}
