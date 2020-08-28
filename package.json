@@ -4,14 +4,33 @@
   "description": "Simpl Platform – удобная платформа для создания интернет-магазина.",
   "main": "index.js",
   "scripts": {
-    "scss": "node-sass --output-style compressed -o dist/css src/scss"
+    "scss": "node-sass --output-style compressed -o dist/css src/scss",
+    "autoprefixer": "postcss -u autoprefixer -r dist/css/*",
+    "lint:scss": "stylelint src/scss/*.scss --syntax scss",
+    "lint": "eslint src/js",
+    "imagemin": "imagemin src/images/* --out-dir=dist/images",
+    "dev": "nodemon index.js"
   },
   "author": "Alexey Shelikhov",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^9.8.6",
+    "eslint": "^7.7.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "imagemin-cli": "^6.0.0",
     "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
     "postcss-cli": "^7.1.1",
     "stylelint": "^13.6.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3"
   }
 }
