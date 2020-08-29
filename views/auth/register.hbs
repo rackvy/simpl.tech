@@ -1,0 +1,49 @@
+<form method="post" class="auth-form" action="/auth/login">
+    <div class="logo-login">
+        <a href="/"><img src="/images/logoS.svg"></a>
+    </div>
+        {{!-- <div class="alert alert-danger" style="margin-top: 30px">Неверный логин или пароль.</div>
+
+
+
+        <div class="mb-3">
+            Вы авторизованы как , <a href="">Выход</a>
+        </div> --}}
+    <div class="form-group">
+        <label for="inputUsername">E-mail</label>
+        <input type="email" value="" name="username" id="inputUsername" class="form-control" required autofocus>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Пароль</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" required>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label for="inputName">ФИО</label>
+        <input type="text" name="name" id="inputName" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="inputPhone">Телефон</label>
+        <input type="text" name="phone" id="inputPhone" class="form-control" required>
+    </div>
+    <input type="hidden" name="_csrf_token" value="">
+    
+    
+    <div class="checkbox mb-1">
+        <label>
+            <input type="checkbox" name="_remember_me"> Запомнить меня
+        </label>
+    </div>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="__iagree"> Я даю своё согласие на обработку персональных данных
+        </label>
+    </div>
+
+    <button class="btn btn-block btn-primary" type="submit">
+        Зарегистрироваться
+    </button>
+    <div class="mt-2 text-center">
+      <a href="/auth/login">Авторизоваться</a>
+    </div>
+</form>

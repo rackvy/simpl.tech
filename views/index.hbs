@@ -13,8 +13,13 @@
                     <div class="col-3 col-md-2"><img src="/images/logoS.svg" class="logo-main img-fluid" alt="simple platform"></div>
                     <div class="col-md-5 col-9 text-right">
 
-                            <a href="/login" class="btn btn-secondary js-link">Войти</a>
-                            <a href="/register" class="btn btn-primary">Регистрация</a>
+                    {{#if isAuth}}
+                        <a href="/panel" class="btn btn-primary">Панель</a>
+                        <a href="/auth/logout" class="btn btn-secondary">Выход</a>
+                    {{else}}
+                        <a href="/login" class="btn btn-secondary">Войти</a>
+                        <a href="/register" class="btn btn-primary">Регистрация</a>
+                    {{/if}}
 
                         <div class="xs-show">
                             <div class="menu">
