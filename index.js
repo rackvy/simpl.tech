@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
@@ -6,16 +7,14 @@ const Sequelize = require('sequelize')
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
+
 const homeRoutes = require('./routes/home')
 const authRoutes = require('./routes/auth')
 
 const varMiddleware = require('./middleware/variables')
 const { allowedNodeEnvironmentFlags } = require('process')
 
-const sequelize = new Sequelize("alexey", "alexey", "", {
-    dialect: "postgres",
-    host: "localhost"
-})
+const sequelize = new Sequelize('postgres://'+ process.env.DB_USER +':'+process.env.DB_PASS+'@'+process.env.DB_HOST+':5432/'+process.env.DB_NAME)
 
 const app = express()
 const hbs = exphbs.create({
@@ -31,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'dist')))
 app.use(express.urlencoded({extended: true}))
 app.use(session({
     store: new pgSession({
-        conString : 'pg://alexey:@localhost/alexey'
+        conString : 'postgres://'+ process.env.DB_USER +':'+process.env.DB_PASS+'@'+process.env.DB_HOST+':5432/'+process.env.DB_NAME
     }),
     secret: 'dsf8cskb@E0asdf><35sfsakhg4@J',
     resave: false,
