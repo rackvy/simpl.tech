@@ -1,17 +1,19 @@
-<form method="post" class="auth-form" action="/auth/login">
+<form method="post" class="auth-form js-register-form" action="/auth/register">
     <div class="logo-login">
         <a href="/"><img src="/images/logoS.svg"></a>
     </div>
-        {{!-- <div class="alert alert-danger" style="margin-top: 30px">Неверный логин или пароль.</div>
+        {{#if error}}
+        <div class="alert alert-danger" style="margin-top: 30px">{{ message}}</div>
+        {{/if}}
 
-
-
+{{#if isAuth}}
         <div class="mb-3">
             Вы авторизованы как , <a href="">Выход</a>
-        </div> --}}
+        </div>
+{{else}}
     <div class="form-group">
         <label for="inputUsername">E-mail</label>
-        <input type="email" value="" name="username" id="inputUsername" class="form-control" required autofocus>
+        <input type="email" value="" name="email" id="inputUsername" class="form-control" required autofocus>
     </div>
     <div class="form-group">
         <label for="inputPassword">Пароль</label>
@@ -31,19 +33,22 @@
     
     <div class="checkbox mb-1">
         <label>
-            <input type="checkbox" name="_remember_me"> Запомнить меня
+            <input type="checkbox" name="_remember_me" checked> Запомнить меня
         </label>
     </div>
     <div class="checkbox mb-3">
         <label>
-            <input type="checkbox" name="__iagree"> Я даю своё согласие на обработку персональных данных
+            <input type="checkbox" name="__iagree" required checked> Я даю своё согласие на обработку персональных данных
         </label>
     </div>
 
-    <button class="btn btn-block btn-primary" type="submit">
+    <button class="btn btn-block btn-primary js-submit" type="submit">
         Зарегистрироваться
     </button>
     <div class="mt-2 text-center">
       <a href="/auth/login">Авторизоваться</a>
     </div>
+{{/if}}
 </form>
+
+<script src="/js/inputmask.min.js"></script>

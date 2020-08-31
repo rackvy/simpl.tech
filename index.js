@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express = require('express')
 const path = require('path')
-const fs = require('fs')
 const exphbs = require('express-handlebars')
 const Sequelize = require('sequelize')
 const session = require('express-session')
@@ -32,12 +31,11 @@ app.use(session({
     store: new pgSession({
         conString : 'postgres://'+ process.env.DB_USER +':'+process.env.DB_PASS+'@'+process.env.DB_HOST+':5432/'+process.env.DB_NAME
     }),
-    secret: 'dsf8cskb@E0asdf><35sfsakhg4@J',
-    resave: false,
-    saveUninitialized: false
+    secret: process.env.DB_SECRET,
+    resave: true,
+    saveUninitialized: true
 }))
 app.use(varMiddleware)
-
 
 
 app.use('/', homeRoutes)
