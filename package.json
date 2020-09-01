@@ -9,7 +9,8 @@
     "lint:scss": "stylelint src/scss/*.scss --syntax scss",
     "lint": "eslint src/js",
     "imagemin": "imagemin src/images/* --out-dir=dist/images",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "main": "node index.js"
   },
   "author": "Alexey Shelikhov",
   "license": "ISC",
@@ -42,5 +43,13 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.4",
     "sequelize-cli": "^6.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rackvy/simpl.tech.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rackvy/simpl.tech/issues"
+  },
+  "homepage": "https://github.com/rackvy/simpl.tech#readme"
 }
