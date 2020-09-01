@@ -57,7 +57,6 @@ router.post('/register', async function(req, res) {
     const email = req.body.email
     const password = req.body.password
     const candidate = await User.findOne({where:{email: email}, raw: true})
-
     if(candidate === null){
         const salt = process.env.DB_SECRET
         const hashPassword = await bcrypt.hash(password, 10)
@@ -102,10 +101,12 @@ router.post('/login', async (req, res) => {
         })    
 
     }else{
-        console.log(candidate)
         const areSame = await bcrypt.compare(password, candidate['password'])
-
         if(areSame){
+            await User.update(
+                {last_login: Date.now()},
+                {where: {id: candidate['id']} }
+            )
             req.session.user = candidate
             req.session.isAuth = true
             req.session.save(err => {
