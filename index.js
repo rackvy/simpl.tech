@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const path = require('path')
+const csrf = require('csurf')
 const exphbs = require('express-handlebars')
 const Sequelize = require('sequelize')
 const session = require('express-session')
@@ -35,6 +36,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+app.use(csrf())
 app.use(varMiddleware)
 
 
