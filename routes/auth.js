@@ -16,7 +16,7 @@ function isValidEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.redirect('/auth/login/')
 })
 
@@ -71,7 +71,7 @@ router.post('/register', async function(req, res) {
         })
         await user.save()
         req.session.isAuth = true
-        req.session.user = candidate
+        req.session.userId = user.id
         req.session.save(err => {
             if(err) throw err
             res.redirect('/panel')
@@ -107,7 +107,7 @@ router.post('/login', async (req, res) => {
                 {last_login: Date.now()},
                 {where: {id: candidate['id']} }
             )
-            req.session.user = candidate
+            req.session.userId = candidate['id']
             req.session.isAuth = true
             req.session.save(err => {
                 if(err) throw err

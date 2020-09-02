@@ -24,12 +24,6 @@ router.get('/contacts', (req, res) => {
         title: 'Связаться с Simple platform | Создай свой интернет магазин за 15 минут page',
     })
 })
-router.get('/panel', (req, res) => {
-    res.render('panel', {
-        layout: 'panel',
-        title: 'Simple platform | Ведется разработка. Мы скоро запустимся',
-    })
-})
 
 router.get('/login', (req, res) => {
     res.redirect('/auth/login')

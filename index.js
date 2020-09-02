@@ -2,14 +2,18 @@ require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const csrf = require('csurf')
+const Handlebars = require('handlebars');
 const exphbs = require('express-handlebars')
 const Sequelize = require('sequelize')
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+
 
 
 const homeRoutes = require('./routes/home')
 const authRoutes = require('./routes/auth')
+const panelRoutes = require('./routes/panel')
 
 const varMiddleware = require('./middleware/variables')
 const { allowedNodeEnvironmentFlags } = require('process')
@@ -19,7 +23,8 @@ const sequelize = new Sequelize('postgres://'+ process.env.DB_USER +':'+process.
 const app = express()
 const hbs = exphbs.create({
     defaultLayout: 'main',
-    extname: 'hbs'
+    extname: 'hbs',
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
 })
 const PORT = process.env.PORT || 80
 
@@ -42,6 +47,7 @@ app.use(varMiddleware)
 
 app.use('/', homeRoutes)
 app.use('/auth', authRoutes)
+app.use('/panel', panelRoutes)
 
 
 

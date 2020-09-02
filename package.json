@@ -29,6 +29,7 @@
     "stylelint": "^13.6.1"
   },
   "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
     "bcryptjs": "^2.4.3",
     "connect-pg-simple": "^6.2.1",
     "crypto": "^1.0.1",
