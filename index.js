@@ -16,6 +16,7 @@ const authRoutes = require('./routes/auth')
 const panelRoutes = require('./routes/panel')
 
 const varMiddleware = require('./middleware/variables')
+const errorHandler = require('./middleware/error')
 const { allowedNodeEnvironmentFlags } = require('process')
 
 const sequelize = new Sequelize('postgres://'+ process.env.DB_USER +':'+process.env.DB_PASS+'@'+process.env.DB_HOST+':5432/'+process.env.DB_NAME)
@@ -49,6 +50,7 @@ app.use('/', homeRoutes)
 app.use('/auth', authRoutes)
 app.use('/panel', panelRoutes)
 
+app.use(errorHandler)
 
 
 app.listen(PORT, () => {
