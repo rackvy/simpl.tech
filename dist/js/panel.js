@@ -36,13 +36,30 @@
       })
 
       var selector = document.getElementById("inputPhone");
+      var selectorWA = document.getElementById("validation-wa");
+      var selectorT = document.getElementById("validation-telegram");
       var im = new Inputmask("+7 (999) 999-99-99");
+
       if(selector != null){
         im.mask(selector);
       }
-      
+      if(selectorWA != null){
+        im.mask(selectorWA);
+      }
+      if(selectorT != null){
+        im.mask(selectorT);
+      }
 
+      var file = document.getElementById("customFile");
+      if(file != null){
+        file.onchange = function(){
+          if(file.files.length > 0)
+          {
+              document.getElementById('js-custom-file-label').innerHTML = file.files[0].name;
+          }
+        };
 
-
-
+      }
+  
+  
 })()

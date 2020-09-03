@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="block-style p-4">
+            <h4>Редактировать информацию</h4>
+            <form class="js-form needs-validation g-3" method="POST" action="">
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-name" class="form-label">Название компании</label>
+                        <input type="text" class="form-control" name="name" id="validation-email" value="{{shop.name}}" required>
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-email" class="form-label">E-mail для уведомлений</label>
+                        <input type="email" class="form-control" name="email" id="validation-email" value="{{#if shop.email}}{{shop.email}}{{else}}{{user.email}}{{/if}}" required>
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="inputPhone" class="form-label">Телефон (для звонков и уведомлений)</label>
+                        <input type="text" class="form-control" name="phone" id="inputPhone" value="{{#if shop.phone}}{{shop.phone}}{{else}}{{user.phone}}{{/if}}" required>
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-vk" class="form-label">Ссылка на страницу ВКонтакте</label>
+                        <input type="text" class="form-control" name="vk" id="validation-vk" value="{{shop.vk}}">
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-fb" class="form-label">Ссылка на страницу Facebook</label>
+                        <input type="text" class="form-control" name="fb" id="validation-fb" value="{{shop.fb}}">
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-wa" class="form-label">Телефон WhatsApp</label>
+                        <input type="text" class="form-control" name="wa" id="validation-wa" value="{{#if shop.wa}}{{shop.wa}}{{else}}{{user.phone}}{{/if}}">
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-telegram" class="form-label">Телефон Telegram</label>
+                        <input type="text" class="form-control" name="telegram" id="validation-telegram" value="{{#if shop.telegram}}{{shop.telegram}}{{else}}{{user.phone}}{{/if}}">
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-instagram" class="form-label">Ссылка на страницу Instagram</label>
+                        <input type="text" class="form-control" name="instagram" id="validation-instagram" value="{{shop.instagram}}">
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-twitter" class="form-label">Ссылка на страницу Twitter</label>
+                        <input type="text" class="form-control" name="twitter" id="validation-twitter" value="{{shop.twitter}}">
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-description" class="form-label">Описание магазина</label>
+                        <textarea class="form-control" name="description" id="validation-description" value="{{shop.description}}">{{shop.description}}</textarea>
+                    </div>
+
+                </div>
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="user_id" value="{{userId}}">
+                <input type="hidden" name="id" value="{{shop.id}}">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="block-style p-4 mb-4{{#if shop.id}} {{else}} disabled-block{{/if}}">
+        <h4>Логотип компании</h4>
+        {{#if shop.logo}}
+            <img src="{{shop.logo}}" class="img-fluid">
+            <p>Загрузите другой логотип</p>
+        {{else}}
+            <p>Загрузите логотип</p>
+        {{/if}}
+        <form method="POST" action="/panel/shop/add_logo" enctype="multipart/form-data">
+          <div class="form-group mb-2">
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="photo-aim" id="customFile">
+                  <label class="custom-file-label" id="js-custom-file-label" for="customFile">Добавить Логотип</label>
+              </div>
+          </div>
+          <input type="hidden" name="id" value="{{shop.id}}">
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+      </div>
+      <div class="block-style p-4 mb-4{{#if shop.id}} {{else}} disabled-block{{/if}}">
+        <h4>Информация о доставке и оплате</h4>
+      </div>
+    </div>
+</div>
