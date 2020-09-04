@@ -58,7 +58,18 @@
               document.getElementById('js-custom-file-label').innerHTML = file.files[0].name;
           }
         };
+      }
 
+      var selectTarif = document.getElementById('js-select-tarif');
+      if(selectTarif != null){
+        selectTarif.onchange = function(){
+          var value = selectTarif.options[selectTarif.selectedIndex].value;
+          var els = document.getElementsByClassName('js-tarif-hide');
+          Array.prototype.forEach.call(els, function(el) {
+            el.style.display = 'none';
+          });
+          document.getElementById('js-card-'+value).style.display = 'block';
+        }
       }
   
   

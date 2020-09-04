@@ -13,10 +13,12 @@ router.get('/', async (req, res) => {
     if(!req.session.isAuth){
         res.redirect('/auth/login/')
     }
+    user = await User.findByPk(req.session.userId)
     res.render('panel/panel', {
         layout: 'panel',
         title: 'Рабочий стол Simple platform',
-        isHome: true
+        isHome: true,
+        user
     })
 })
 
@@ -91,9 +93,9 @@ router.get('/shop', async (req, res) => {
     }
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
     let user
-    if(shop == null){
-        user = await User.findByPk(req.session.userId)
-    }
+    //if(shop == null){
+    user = await User.findByPk(req.session.userId)
+    //}
     
     res.render('panel/shop', {
         layout: 'panel',
@@ -190,9 +192,21 @@ router.post('/shop/add_del_pay', async (req, res) => {
     if(result == 1){
         res.redirect('/panel/shop')
     }
+})
 
-
-    console.log(req.body);
+router.post('/profile/change_tarif', async (req, res) => {
+    if(!req.session.isAuth){
+        res.redirect('/auth/login/')
+    }
+    const result = await User.update(
+        {
+            tarif_id: req.body.tarif_id,
+        },
+        {where: {id: req.body.id}}
+    )
+    if(result == 1){
+        res.redirect('/panel/profile')
+    }
 })
 
 

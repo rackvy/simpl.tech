@@ -29,6 +29,9 @@ module.exports = {
       last_login: {
         type: Sequelize.DATE
       },
+      tarif_id: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
