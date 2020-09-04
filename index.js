@@ -7,8 +7,8 @@ const exphbs = require('express-handlebars')
 const Sequelize = require('sequelize')
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
-const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
-
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
+const fs = require('fs')
 
 
 const homeRoutes = require('./routes/home')
@@ -17,6 +17,7 @@ const panelRoutes = require('./routes/panel')
 
 const varMiddleware = require('./middleware/variables')
 const errorHandler = require('./middleware/error')
+const fileMiddleware = require('./middleware/file')
 const { allowedNodeEnvironmentFlags } = require('process')
 
 const sequelize = new Sequelize('postgres://'+ process.env.DB_USER +':'+process.env.DB_PASS+'@'+process.env.DB_HOST+':5432/'+process.env.DB_NAME)
@@ -25,8 +26,19 @@ const app = express()
 const hbs = exphbs.create({
     defaultLayout: 'main',
     extname: 'hbs',
-    handlebars: allowInsecurePrototypeAccess(Handlebars)
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+    helpers: {
+        if_eq: function(a, b, opts) {
+            if (a == b) {
+                return opts.fn(this);
+            } else {
+                return opts.inverse(this);
+            }
+        }
+    }
 })
+
+
 const PORT = process.env.PORT || 80
 
 app.engine('hbs', hbs.engine)
@@ -42,6 +54,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+app.use(fileMiddleware.single('logo'))
 app.use(csrf())
 app.use(varMiddleware)
 

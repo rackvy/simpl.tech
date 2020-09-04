@@ -54,16 +54,16 @@
                 </div>
                 <input type="hidden" name="_csrf" value="{{csrf}}">
                 <input type="hidden" name="user_id" value="{{userId}}">
-                <input type="hidden" name="id" value="{{shop.id}}">
+                <input type="hidden" name="shopid" value="{{shop.id}}">
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form>
         </div>
     </div>
     <div class="col-md-6">
       <div class="block-style p-4 mb-4{{#if shop.id}} {{else}} disabled-block{{/if}}">
-        <h4>Логотип компании</h4>
+        <h4>Логотип компании{{#if shop.id}} {{else}} (Сначала надо заполнить информацию о компании){{/if}}</h4>
         {{#if shop.logo}}
-            <img src="{{shop.logo}}" class="img-fluid">
+            <img src="/images/logos/{{shop.logo}}" class="img-fluid panel-shop-logo">
             <p>Загрузите другой логотип</p>
         {{else}}
             <p>Загрузите логотип</p>
@@ -71,16 +71,103 @@
         <form method="POST" action="/panel/shop/add_logo" enctype="multipart/form-data">
           <div class="form-group mb-2">
               <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="photo-aim" id="customFile">
+                  <input type="file" class="custom-file-input" name="logo" id="customFile">
                   <label class="custom-file-label" id="js-custom-file-label" for="customFile">Добавить Логотип</label>
               </div>
           </div>
-          <input type="hidden" name="id" value="{{shop.id}}">
+          <input type="hidden" name="_csrf" value="{{csrf}}">
+          <input type="hidden" name="user_id" value="{{userId}}">
+          <input type="hidden" name="shopid" value="{{shop.id}}">
           <button type="submit" class="btn btn-primary">Сохранить</button>
         </form>
       </div>
       <div class="block-style p-4 mb-4{{#if shop.id}} {{else}} disabled-block{{/if}}">
-        <h4>Информация о доставке и оплате</h4>
+        <h4>Информация о доставке и оплате{{#if shop.id}} {{else}} (Сначала надо заполнить информацию о компании){{/if}}</h4>
+        <form method="POST" action="/panel/shop/add_del_pay">
+            <h5>Доставка (необходимо отметить)</h5>
+            <div class="form-check mb-1">
+                <input 
+                 class="form-check-input"
+                 type="checkbox" 
+                 name="delivery" 
+                 value="delivery" 
+                 id="del-v-1"
+                 {{#each shop.params_del_pay.delivery}}
+                    {{#if_eq this 'delivery'}}checked{{/if_eq}}
+                 {{/each}}
+                >
+                <label class="form-check-label" for="del-v-1">
+                    Доставка
+                </label>
+            </div>
+            <div class="form-check mb-1">
+                <input 
+                 class="form-check-input" 
+                 type="checkbox" 
+                 name="delivery" 
+                 value="pickup" 
+                 id="del-v-2"
+                 {{#each shop.params_del_pay.delivery}}
+                    {{#if_eq this 'pickup'}}checked{{/if_eq}}
+                 {{/each}}
+                >
+                <label class="form-check-label" for="del-v-2">
+                    Самовывоз из магазина
+                </label>
+            </div>
+            
+            <h5>Оплата (необходимо отметить)</h5>
+            <div class="form-check mb-1">
+                <input 
+                 class="form-check-input" 
+                 type="checkbox" 
+                 name="payment" 
+                 value="cash" 
+                 id="pay-v-1"
+                 {{#each shop.params_del_pay.payment}}
+                    {{#if_eq this 'cash'}}checked{{/if_eq}}
+                 {{/each}}
+                >
+                <label class="form-check-label" for="pay-v-1">
+                    Оплата наличными
+                </label>
+            </div>
+            <div class="form-check mb-1">
+                <input 
+                 class="form-check-input" 
+                 type="checkbox" 
+                 name="payment" 
+                 value="online" 
+                 id="pay-v-2"
+                 {{#each shop.params_del_pay.payment}}
+                    {{#if_eq this 'online'}}checked{{/if_eq}}
+                 {{/each}}
+                >
+                <label class="form-check-label" for="pay-v-2">
+                    Оплата Online картой (услугу предоставляет <a href="https://arsenalpay.ru" target="_blank">ArsenalPay</a>)
+                </label>
+            </div>
+            <div class="form-check mb-1">
+                <input 
+                 class="form-check-input" 
+                 type="checkbox" 
+                 name="payment" 
+                 value="pay_after_del" 
+                 id="pay-v-3"
+                 {{#each shop.params_del_pay.payment}}
+                    {{#if_eq this 'pay_after_del'}}checked{{/if_eq}}
+                 {{/each}}
+                >
+                <label class="form-check-label" for="pay-v-3">
+                    Оплата при получении
+                </label>
+            </div>
+            <input type="hidden" name="_csrf" value="{{csrf}}">
+            <input type="hidden" name="user_id" value="{{userId}}">
+            <input type="hidden" name="shopid" value="{{shop.id}}">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+
+        </form>
       </div>
     </div>
 </div>

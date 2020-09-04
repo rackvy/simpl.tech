@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const fs = require('fs')
 const path = require('path')
 
+
 const User = require('../models').User
 const Shop = require('../models').Shop
 
@@ -93,6 +94,7 @@ router.get('/shop', async (req, res) => {
     if(shop == null){
         user = await User.findByPk(req.session.userId)
     }
+    
     res.render('panel/shop', {
         layout: 'panel',
         title: 'Ваш магазин',
@@ -106,8 +108,8 @@ router.post('/shop', async (req, res) => {
     if(!req.session.isAuth){
         res.redirect('/auth/login/')
     }
-    const {id, user_id, name, email, phone, vk, fb, wa, telegram, instagram, twitter, description} = req.body
-    if(id){
+    const {shopid, user_id, name, email, phone, vk, fb, wa, telegram, instagram, twitter, description} = req.body
+    if(shopid){
         const result = await Shop.update(
             {
                 name: name,
@@ -121,7 +123,7 @@ router.post('/shop', async (req, res) => {
                 twitter: twitter,
                 description: description
             },
-            {where: {id: id}}
+            {where: {id: shopid}}
         )
         if(result == 1){
             res.redirect('/panel/shop')
@@ -152,9 +154,46 @@ router.post('/shop/add_logo', async (req, res) => {
     if(!req.session.isAuth){
         res.redirect('/auth/login/')
     }
-    
+    const result = await Shop.update(
+        {
+            logo: req.file.filename,
+        },
+        {where: {id: req.body.shopid}}
+    )
+    if(result == 1){
+        res.redirect('/panel/shop')
+    }
 })
 
+router.post('/shop/add_del_pay', async (req, res) => {
+    if(!req.session.isAuth){
+        res.redirect('/auth/login/')
+    }
+    if(Array.isArray(req.body.delivery) == false){
+        req.body.delivery = [req.body.delivery]
+    }
+    
+    if(Array.isArray(req.body.payment) == false){
+        req.body.payment = [req.body.payment]
+    }
+    
+    const data = {
+        delivery: req.body.delivery,
+        payment: req.body.payment
+    }
+    const result = await Shop.update(
+        {
+            params_del_pay: data,
+        },
+        {where: {id: req.body.shopid}}
+    )
+    if(result == 1){
+        res.redirect('/panel/shop')
+    }
+
+
+    console.log(req.body);
+})
 
 
 module.exports = router

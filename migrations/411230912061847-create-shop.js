@@ -53,6 +53,9 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
+      params_del_pay: {
+        type: Sequelize.JSON
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
