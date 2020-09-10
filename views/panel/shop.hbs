@@ -15,20 +15,16 @@
                         <input type="text" class="form-control" name="name" id="validation-email" value="{{shop.name}}" required>
                     </div>
                     <div class="col-md-12 mb-2">
+                        <label for="validation-url" class="form-label">Адрес (simpl.tech/{{shop.url}})</label>
+                        <input type="text" class="form-control" name="url" id="validation-url" value="{{shop.url}}" required>
+                    </div>
+                    <div class="col-md-12 mb-2">
                         <label for="validation-email" class="form-label">E-mail для уведомлений</label>
                         <input type="email" class="form-control" name="email" id="validation-email" value="{{#if shop.email}}{{shop.email}}{{else}}{{user.email}}{{/if}}" required>
                     </div>
                     <div class="col-md-12 mb-2">
                         <label for="inputPhone" class="form-label">Телефон (для звонков и уведомлений)</label>
                         <input type="text" class="form-control" name="phone" id="inputPhone" value="{{#if shop.phone}}{{shop.phone}}{{else}}{{user.phone}}{{/if}}" required>
-                    </div>
-                    <div class="col-md-12 mb-2">
-                        <label for="validation-vk" class="form-label">Ссылка на страницу ВКонтакте</label>
-                        <input type="text" class="form-control" name="vk" id="validation-vk" value="{{shop.vk}}">
-                    </div>
-                    <div class="col-md-12 mb-2">
-                        <label for="validation-fb" class="form-label">Ссылка на страницу Facebook</label>
-                        <input type="text" class="form-control" name="fb" id="validation-fb" value="{{shop.fb}}">
                     </div>
                     <div class="col-md-12 mb-2">
                         <label for="validation-wa" class="form-label">Телефон WhatsApp</label>
@@ -39,12 +35,16 @@
                         <input type="text" class="form-control" name="telegram" id="validation-telegram" value="{{#if shop.telegram}}{{shop.telegram}}{{else}}{{user.phone}}{{/if}}">
                     </div>
                     <div class="col-md-12 mb-2">
-                        <label for="validation-instagram" class="form-label">Ссылка на страницу Instagram</label>
-                        <input type="text" class="form-control" name="instagram" id="validation-instagram" value="{{shop.instagram}}">
+                        <label for="validation-vk" class="form-label">Ссылка на страницу ВКонтакте</label>
+                        <input type="text" class="form-control" name="vk" id="validation-vk" value="{{shop.vk}}">
                     </div>
                     <div class="col-md-12 mb-2">
-                        <label for="validation-twitter" class="form-label">Ссылка на страницу Twitter</label>
-                        <input type="text" class="form-control" name="twitter" id="validation-twitter" value="{{shop.twitter}}">
+                        <label for="validation-fb" class="form-label">Ссылка на страницу Facebook</label>
+                        <input type="text" class="form-control" name="fb" id="validation-fb" value="{{shop.fb}}">
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <label for="validation-instagram" class="form-label">Ссылка на страницу Instagram</label>
+                        <input type="text" class="form-control" name="instagram" id="validation-instagram" value="{{shop.instagram}}">
                     </div>
                     <div class="col-md-12 mb-2">
                         <label for="validation-description" class="form-label">Описание магазина</label>
@@ -144,7 +144,7 @@
                  {{/each}}
                 >
                 <label class="form-check-label" for="pay-v-2">
-                    Оплата Online картой (услугу предоставляет <a href="https://arsenalpay.ru" target="_blank">ArsenalPay</a>)
+                    Оплата Online картой (услугу предоставляет <a href="https://cloudpayments.ru" target="_blank">Cloudpayments</a>)
                 </label>
             </div>
             <div class="form-check mb-1">

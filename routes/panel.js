@@ -14,11 +14,13 @@ router.get('/', async (req, res) => {
         res.redirect('/auth/login/')
     }
     user = await User.findByPk(req.session.userId)
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
     res.render('panel/panel', {
         layout: 'panel',
         title: 'Рабочий стол Simple platform',
         isHome: true,
-        user
+        user,
+        shop
     })
 })
 
@@ -27,13 +29,35 @@ router.get('/profile', async (req, res) => {
         res.redirect('/auth/login/')
     }
     const user = await User.findByPk(req.session.userId)
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
     res.render('panel/profile', {
         layout: 'panel',
         title: 'Профиль пользователя',
         isProfile: true,
+        user,
+        shop
+    })
+})
+
+router.get('/shop', async (req, res) => {
+    if(!req.session.isAuth){
+        res.redirect('/auth/login/')
+    }
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    let user
+    //if(shop == null){
+    user = await User.findByPk(req.session.userId)
+    //}
+    
+    res.render('panel/shop', {
+        layout: 'panel',
+        title: 'Ваш магазин',
+        isShop: true,
+        shop,
         user
     })
 })
+
 
 router.post('/profile', async (req, res) => {
     if(!req.session.isAuth){
@@ -86,31 +110,11 @@ router.post('/profile', async (req, res) => {
     }
 })
 
-
-router.get('/shop', async (req, res) => {
-    if(!req.session.isAuth){
-        res.redirect('/auth/login/')
-    }
-    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
-    let user
-    //if(shop == null){
-    user = await User.findByPk(req.session.userId)
-    //}
-    
-    res.render('panel/shop', {
-        layout: 'panel',
-        title: 'Ваш магазин',
-        isShop: true,
-        shop,
-        user
-    })
-})
-
 router.post('/shop', async (req, res) => {
     if(!req.session.isAuth){
         res.redirect('/auth/login/')
     }
-    const {shopid, user_id, name, email, phone, vk, fb, wa, telegram, instagram, twitter, description} = req.body
+    const {shopid, user_id, name, email, phone, vk, fb, wa, telegram, instagram, url, description} = req.body
     if(shopid){
         const result = await Shop.update(
             {
@@ -122,7 +126,7 @@ router.post('/shop', async (req, res) => {
                 wa: wa,
                 telegram: telegram,
                 instagram: instagram,
-                twitter: twitter,
+                url: url,
                 description: description
             },
             {where: {id: shopid}}
@@ -141,7 +145,7 @@ router.post('/shop', async (req, res) => {
             wa: wa,
             telegram: telegram,
             instagram: instagram,
-            twitter: twitter,
+            url: url,
             description: description
         })
         await shop.save()

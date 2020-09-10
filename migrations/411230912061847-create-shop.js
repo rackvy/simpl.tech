@@ -44,7 +44,7 @@ module.exports = {
       instagram: {
         type: Sequelize.STRING
       },
-      twitter: {
+      url: {
         type: Sequelize.STRING
       },
       tarif_id: {

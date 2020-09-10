@@ -71,6 +71,11 @@
           document.getElementById('js-card-'+value).style.display = 'block';
         }
       }
+
+      var urlForQR = document.getElementById('js-url');
+      if(urlForQR != null){
+        new QRCode(document.getElementById("js-qrcode"), urlForQR.value);
+      }
   
   
 })()

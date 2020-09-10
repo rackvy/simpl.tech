@@ -21,11 +21,16 @@
                                     Тариф: <strong>{{user.tarif_id}}</strong>
                                   </div>
                                   <div class="mb-3">
+                                    <h6>Ваш QR код</h6>
+                                    <input type="hidden" value="https://simpl.tech/{{shop.url}}" id="js-url">
+                                    <div id="js-qrcode" class="qrcode"></div>
+                                  </div>
+                                  <div class="mb-3">
                                     <h6>Список задач</h6>
                                     <ul>
-                                      <li><a href="/panel/shop/">Создать Магазин</a></li>
-                                      <li><a href="/panel/shop/">Добавить логотип</a></li>
-                                      <li><a href="/panel/shop/">Выбрать способ доставки и оплаты</a></li>
+                                      {{#if shop.id}}{{else}}<li><a href="/panel/shop/">Создать Магазин</a></li>{{/if}}
+                                      {{#if shop.logo}}{{else}}<li><a href="/panel/shop/">Добавить логотип</a></li>{{/if}}
+                                      {{#if shop.params_del_pay}}{{else}}<li><a href="/panel/shop/">Выбрать способ доставки и оплаты</a></li>{{/if}}
                                     </ul>
                                   </div>
                                   <div class="mb-3">
@@ -80,4 +85,5 @@
 
 <script src="/js/bootstrap.js"></script>
 <script src="/js/inputmask.min.js"></script>
+<script src="/js/qrcode.js"></script>
 <script src="/js/panel.js"></script>
