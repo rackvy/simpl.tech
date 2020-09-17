@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="block-style p-4">
+            <h4>Редактировать информацию</h4>
+            <form class="js-form needs-validation g-3" method="POST" action="">
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+                <div id="js-add-adress" data-i='{{count}}'>
+                    {{#each shops}}
+                    <div class="mb-3">
+                        <label for="adress{{@key}}" class="form-label">Адрес магазина</label>
+                        <input type="text" class="form-control" name="shops[{{@key}}][adress]" id="adress{{@key}}" value="{{this.adress}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="desc{{@key}}" class="form-label">Описание магазина</label>
+                        <textarea class="form-control" id="desc{{@key}}" name="shops[{{@key}}][desc]" rows="3">{{this.desc}}</textarea>
+                    </div>
+                    <hr>
+                    {{/each}}
+                </div>
+
+                <div class="mb-4">
+                    <div id="js-add-new-adress" class="btn btn-secondary">Добавить ещё магазин</div>
+                </div>
+
+
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="user_id" value="{{userId}}">
+                <input type="hidden" name="shopid" value="{{shop.id}}">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+</div>

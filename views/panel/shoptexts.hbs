@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="block-style p-4">
+            <h4>Редактировать информацию</h4>
+            <form class="js-form needs-validation g-3" method="POST" action="">
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+
+                <div class="mb-3">
+                    <label for="delivery" class="form-label">Информация о доставке</label>
+                    <textarea class="form-control" id="delivery" name="texts[delivery]" rows="4">{{texts.delivery}}</textarea>
+                </div>
+                <hr>
+                <div class="mb-3">
+                   <label for="payments" class="form-label">Информация об оплате</label>
+                   <textarea class="form-control" id="payments" name="texts[payments]" rows="4">{{texts.payments}}</textarea>
+                </div>
+
+
+
+
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="user_id" value="{{userId}}">
+                <input type="hidden" name="shopid" value="{{shop.id}}">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+</div>

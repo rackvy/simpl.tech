@@ -25,9 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     telegram: DataTypes.STRING,
     instagram: DataTypes.STRING,
     url: DataTypes.STRING,
-    tarif_id: DataTypes.INTEGER,
     description: DataTypes.TEXT,
     params_del_pay: DataTypes.JSON,
+    adresses: DataTypes.JSON,
+    texts: DataTypes.JSON,
   }, {
     sequelize,
     modelName: 'Shop',

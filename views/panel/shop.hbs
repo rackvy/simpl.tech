@@ -15,8 +15,14 @@
                         <input type="text" class="form-control" name="name" id="validation-email" value="{{shop.name}}" required>
                     </div>
                     <div class="col-md-12 mb-2">
-                        <label for="validation-url" class="form-label">Адрес (simpl.tech/{{shop.url}})</label>
-                        <input type="text" class="form-control" name="url" id="validation-url" value="{{shop.url}}" required>
+                        <label for="validation-url" class="form-label">Адрес</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon3">https://simpl.tech/</span>
+                            <input type="text" class="form-control{{#if shop.url}} disabled-block{{/if}}" name="url" id="validation-url" value="{{shop.url}}" required>
+                        </div>
+                        <small class="invalid-feedback" style="display: block;">
+                            Данное поле редактировать нельзя.
+                        </small>
                     </div>
                     <div class="col-md-12 mb-2">
                         <label for="validation-email" class="form-label">E-mail для уведомлений</label>
@@ -63,7 +69,7 @@
       <div class="block-style p-4 mb-4{{#if shop.id}} {{else}} disabled-block{{/if}}">
         <h4>Логотип компании{{#if shop.id}} {{else}} (Сначала надо заполнить информацию о компании){{/if}}</h4>
         {{#if shop.logo}}
-            <img src="/images/logos/{{shop.logo}}" class="img-fluid panel-shop-logo">
+            <img src="{{shop.logo}}" class="img-fluid panel-shop-logo">
             <p>Загрузите другой логотип</p>
         {{else}}
             <p>Загрузите логотип</p>

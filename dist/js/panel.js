@@ -76,6 +76,26 @@
       if(urlForQR != null){
         new QRCode(document.getElementById("js-qrcode"), urlForQR.value);
       }
-  
+
+
+      var buttonAddNewAdress = document.getElementById('js-add-new-adress');
+      buttonAddNewAdress.addEventListener( "click" , () => {
+        let i = document.getElementById('js-add-adress').dataset.i;
+        i++;
+        document.getElementById('js-add-adress').dataset.i = i;
+        let templete = document.createElement('div');
+        templete.innerHTML = 
+        '<div class="mb-3">'+
+            '<label for="adress'+i+'" class="form-label">Адрес магазина</label>'+
+            '<input type="text" class="form-control" name="shops['+i+'][adress]" id="adress'+i+'" placeholder="">'+
+        '</div>'+
+        '<div class="mb-3">'+
+            '<label for="desc'+i+'" class="form-label">Описание магазина</label>'+
+            '<textarea class="form-control" id="desc'+i+'" name="shops['+i+'][desc]" rows="3"></textarea>'+
+        '</div>';
+
+        document.getElementById('js-add-adress').append(templete);
+        
+      });
   
 })()

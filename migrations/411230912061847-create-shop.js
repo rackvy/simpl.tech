@@ -47,13 +47,16 @@ module.exports = {
       url: {
         type: Sequelize.STRING
       },
-      tarif_id: {
-        type: Sequelize.INTEGER
-      },
       description: {
         type: Sequelize.TEXT
       },
       params_del_pay: {
+        type: Sequelize.JSON
+      },
+      adresses: {
+        type: Sequelize.JSON
+      },
+      texts: {
         type: Sequelize.JSON
       },
       createdAt: {
