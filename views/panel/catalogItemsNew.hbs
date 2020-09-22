@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="block-style p-4">
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+
+                <form class="js-form needs-validation g-3" method="POST" action="" enctype="multipart/form-data" >
+
+                <div class="mb-3">
+                    <label for="name" class="form-label"><b>Название товара</b></label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" value="true" name="active" id="active" checked>
+                  <label class="form-check-label" for="active">
+                    Активность
+                  </label>
+                </div>
+                <div class="mb-3">
+                    <label for="cat_id" class="form-label">Категория</label>
+                    <select class="form-select" name="cat_id" id="cat_id">
+                    {{#each cats}}
+                        <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="articul" class="form-label">Артикул</label>
+                    <input type="text" class="form-control" id="articul" name="articul" >
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Цена</label>
+                    <input type="text" class="form-control js-price-input" id="price" name="price">
+                </div>
+                <div class="mb-3">
+                   <label for="description" class="form-label">Описание</label>
+                   <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                </div>
+                <div class="form-file mb-3">
+                    <input type="file" class="form-file-input" id="picture" name="picture" accept="image/*">
+                    <label class="form-file-label" for="picture">
+                        <span class="form-file-text" id="js-file-picture-text">Основное изображение</span>
+                        <span class="form-file-button">Выбрать</span>
+                    </label>
+                </div>
+
+                <div class="form-file mb-3">
+                    <input type="file" class="form-file-input" id="pictures" name="pictures" multiple accept="image/*">
+                    <label class="form-file-label" for="pictures">
+                        <span class="form-file-text" id="js-file-pictures-text">Дополнительные изображения (можно выбрать несколько)</span>
+                        <span class="form-file-button">Выбрать</span>
+                    </label>
+                </div>
+
+
+
+
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="user_id" value="{{userId}}">
+                <input type="hidden" name="shopid" value="{{shop.id}}">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+
+
+            
+        </div>
+    </div>
+
+</div>
+
+
+

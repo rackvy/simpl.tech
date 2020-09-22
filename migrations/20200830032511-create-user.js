@@ -30,7 +30,13 @@ module.exports = {
         type: Sequelize.DATE
       },
       tarif_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Tarifs',
+          key: 'id',
+          as: 'tarif_id',
+        }
       },
       createdAt: {
         allowNull: false,

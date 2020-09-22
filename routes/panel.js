@@ -9,29 +9,38 @@ const auth = require('../middleware/auth')
 
 const User = require('../models').User
 const Shop = require('../models').Shop
+const Tarif = require('../models').Tarif
+const Category = require('../models').Category
+const Catalog = require('../models').Catalog
 
 
 router.get('/', auth, async (req, res) => {
     const user = await User.findByPk(req.session.userId)
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const tarif = await Tarif.findByPk(user.tarif_id)
+
     res.render('panel/panel', {
         layout: 'panel',
         title: 'Рабочий стол Simple platform',
         isHome: true,
         user,
-        shop
+        shop,
+        tarif
     })
 })
 
 router.get('/profile', auth,  async (req, res) => {
     const user = await User.findByPk(req.session.userId)
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const tarif = await Tarif.findByPk(user.tarif_id)
+
     res.render('panel/profile', {
         layout: 'panel',
         title: 'Профиль пользователя',
         isProfile: true,
         user,
-        shop
+        shop,
+        tarif
     })
 })
 
@@ -39,13 +48,15 @@ router.get('/shop', auth,  async (req, res) => {
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
     let user
     user = await User.findByPk(req.session.userId)
-    
+    const tarif = await Tarif.findByPk(user.tarif_id)
+
     res.render('panel/shop', {
         layout: 'panel',
         title: 'Ваш магазин',
         isShop: true,
         shop,
-        user
+        user,
+        tarif
     })
 })
 
@@ -53,7 +64,11 @@ router.get('/shop/adress', auth,  async (req, res) => {
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
     const user = await User.findByPk(req.session.userId)
     const shops = JSON.parse(shop.adresses)
-    let count = shops.length
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    let count
+    if(shops != null){
+        count = shops.length
+    }
     if(count == 0){count = 1}
     res.render('panel/shopadress', {
         layout: 'panel',
@@ -62,7 +77,8 @@ router.get('/shop/adress', auth,  async (req, res) => {
         shop,
         user,
         shops,
-        count
+        count,
+        tarif
     })
 })
 
@@ -70,15 +86,108 @@ router.get('/shop/texts', auth,  async (req, res) => {
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
     const user = await User.findByPk(req.session.userId)
     const texts = JSON.parse(shop.texts)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+
     res.render('panel/shoptexts', {
         layout: 'panel',
-        title: 'Адреса магазинов',
-        isShopAdress: true,
+        title: 'Текста о доставке и об оплате',
+        isShopTexts: true,
         shop,
         user,
-        texts
+        texts,
+        tarif
     })
 })
+
+router.get('/catalog/categorys', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const cats = await Category.findAll({where:{user_id: req.session.userId}})
+
+    res.render('panel/catalogCats', {
+        layout: 'panel',
+        title: 'Списко категорий',
+        isCatalogCats: true,
+        shop,
+        user,
+        tarif,
+        cats
+    })
+})
+    router.get('/catalog/categorys/delete/:id', auth,  async (req, res) => {
+        const id = req.params.id
+        Category.destroy({
+            where: {
+              id: id,
+              user_id: req.session.userId
+            }
+          }).then((err) => {
+            return res.redirect('/panel/catalog/categorys')
+          })
+    })
+
+    router.get('/catalog/categorys/edit/:id', auth,  async (req, res) => {
+        const id = req.params.id
+        const category = await Category.findByPk(id)
+        const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+        const user = await User.findByPk(req.session.userId)
+        const tarif = await Tarif.findByPk(user.tarif_id)
+    
+        res.render('panel/catalogCatsEdit', {
+            layout: 'panel',
+            title: 'Список категорий',
+            isCatalogCats: true,
+            shop,
+            user,
+            tarif,
+            category
+        })
+    
+    })
+
+
+router.get('/catalog/items', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const cats = await Category.findAll({where:{user_id: req.session.userId}})
+    const items = await Catalog.findAll({where:{user_id: req.session.userId}})
+
+
+    res.render('panel/catalogItems', {
+        layout: 'panel',
+        title: 'Список товаров',
+        isCatalogItem: true,
+        shop,
+        user,
+        tarif,
+        cats,
+        items
+    })
+})
+    
+router.get('/catalog/items/new', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const cats = await Category.findAll({where:{user_id: req.session.userId}})
+
+
+    res.render('panel/catalogItemsNew', {
+        layout: 'panel',
+        title: 'Список товаров',
+        isCatalogItem: true,
+        shop,
+        user,
+        tarif,
+        cats
+    })
+})
+    
+
+
+
 
 
 router.post('/profile', auth, async (req, res) => {
@@ -260,6 +369,54 @@ router.post('/shop/texts', auth,  async (req, res) => {
     }
 
 })
+
+router.post('/catalog/categorys', auth,  async (req, res) => {
+    const {name, parent_cat, description} = req.body
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    if(name != null){
+        const category = new Category({
+            name: name,
+            user_id: req.session.userId,
+            paren_id: parent_cat,
+            description: description
+        })
+        await category.save()
+        return res.redirect('/panel/catalog/categorys')
+    }else{
+        return res.render('panel/catalogCats', {
+            layout: 'panel',
+            title: 'Списко категорий',
+            isCatalogCats: true,
+            shop,
+            user,
+            tarif,
+            error: true,
+            message: 'Поле "Название категории" обязательное'
+        })
+    }
+    
+})
+
+
+
+router.post('/catalog/categorys/edit/:id', auth,  async (req, res) => {
+    const id = req.params.id
+    const result = await Category.update(
+        {
+            name: req.body.name,
+            description: req.body.description
+        },
+        {where: {id: id}}
+    )
+    if(result == 1){
+        res.redirect('/panel/catalog/categorys')
+    }
+
+
+})
+
 
 
 

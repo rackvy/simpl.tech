@@ -60,6 +60,16 @@
         };
       }
 
+      var file2 = document.getElementById("picture");
+      if(file2 != null){
+        file2.onchange = function(){
+          if(file2.files.length > 0)
+          {
+              document.getElementById('js-file-picture-text').innerHTML = file2.files[0].name;
+          }
+        };
+      }
+
       var selectTarif = document.getElementById('js-select-tarif');
       if(selectTarif != null){
         selectTarif.onchange = function(){
@@ -79,23 +89,32 @@
 
 
       var buttonAddNewAdress = document.getElementById('js-add-new-adress');
-      buttonAddNewAdress.addEventListener( "click" , () => {
-        let i = document.getElementById('js-add-adress').dataset.i;
-        i++;
-        document.getElementById('js-add-adress').dataset.i = i;
-        let templete = document.createElement('div');
-        templete.innerHTML = 
-        '<div class="mb-3">'+
-            '<label for="adress'+i+'" class="form-label">Адрес магазина</label>'+
-            '<input type="text" class="form-control" name="shops['+i+'][adress]" id="adress'+i+'" placeholder="">'+
-        '</div>'+
-        '<div class="mb-3">'+
-            '<label for="desc'+i+'" class="form-label">Описание магазина</label>'+
-            '<textarea class="form-control" id="desc'+i+'" name="shops['+i+'][desc]" rows="3"></textarea>'+
-        '</div>';
+      if(buttonAddNewAdress != null){
+        buttonAddNewAdress.addEventListener( "click" , () => {
+          let i = document.getElementById('js-add-adress').dataset.i;
+          i++;
+          document.getElementById('js-add-adress').dataset.i = i;
+          let templete = document.createElement('div');
+          templete.innerHTML = 
+          '<div class="mb-3">'+
+              '<label for="adress'+i+'" class="form-label">Адрес магазина</label>'+
+              '<input type="text" class="form-control" name="shops['+i+'][adress]" id="adress'+i+'" placeholder="">'+
+          '</div>'+
+          '<div class="mb-3">'+
+              '<label for="desc'+i+'" class="form-label">Описание магазина</label>'+
+              '<textarea class="form-control" id="desc'+i+'" name="shops['+i+'][desc]" rows="3"></textarea>'+
+          '</div>';
+  
+          document.getElementById('js-add-adress').append(templete);
+          
+        });
+      }
+      
 
-        document.getElementById('js-add-adress').append(templete);
-        
-      });
+
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
   
 })()

@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="block-style p-4">
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+
+            <form class="js-form needs-validation g-3" method="POST" action="">
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Название категории</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{category.name}}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="parent_cat" class="form-label">Родительская категория</label>
+                    <select class="form-select" id="parent_cat" name="parent_cat">
+                        <option value="0" selected>Главная категория</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                   <label for="description" class="form-label">Информация о категории</label>
+                   <textarea class="form-control" id="description" name="description" rows="4">{{category.description}}</textarea>
+                </div>
+
+
+
+
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="user_id" value="{{userId}}">
+                <input type="hidden" name="catid" value="{{category.id}}">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+
+            
+        </div>
+    </div>
+
+</div>
+
+
+

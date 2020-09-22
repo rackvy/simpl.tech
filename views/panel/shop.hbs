@@ -20,9 +20,11 @@
                             <span class="input-group-text" id="basic-addon3">https://simpl.tech/</span>
                             <input type="text" class="form-control{{#if shop.url}} disabled-block{{/if}}" name="url" id="validation-url" value="{{shop.url}}" required>
                         </div>
+                        {{#if shop.url}}
                         <small class="invalid-feedback" style="display: block;">
                             Данное поле редактировать нельзя.
                         </small>
+                        {{/if}}
                     </div>
                     <div class="col-md-12 mb-2">
                         <label for="validation-email" class="form-label">E-mail для уведомлений</label>
