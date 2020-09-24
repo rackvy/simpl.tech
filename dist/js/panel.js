@@ -70,6 +70,16 @@
         };
       }
 
+      var files = document.getElementById("pictures");
+      if(files != null){
+        files.onchange = function(){
+          if(files.files.length > 0)
+          {
+              document.getElementById('js-file-pictures-text').innerHTML = 'Выбрано файлов ' + files.files.length;
+          }
+        };
+      }
+
       var selectTarif = document.getElementById('js-select-tarif');
       if(selectTarif != null){
         selectTarif.onchange = function(){

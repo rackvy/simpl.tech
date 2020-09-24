@@ -22,7 +22,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="cat_id" class="form-label">Категория</label>
-                    <select class="form-select" name="cat_id" id="cat_id">
+                    <select class="form-select" name="cat_id" id="cat_id" required>
                     {{#each cats}}
                         <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
@@ -34,28 +34,29 @@
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Цена</label>
-                    <input type="text" class="form-control js-price-input" id="price" name="price">
+                    <input type="text" class="form-control js-price-input" id="price" name="price" required>
                 </div>
                 <div class="mb-3">
                    <label for="description" class="form-label">Описание</label>
                    <textarea class="form-control" id="description" name="description" rows="4"></textarea>
                 </div>
                 <div class="form-file mb-3">
-                    <input type="file" class="form-file-input" id="picture" name="picture" accept="image/*">
+                    <input type="file" class="form-file-input" id="picture" name="file" accept="image/*" required>
                     <label class="form-file-label" for="picture">
                         <span class="form-file-text" id="js-file-picture-text">Основное изображение</span>
                         <span class="form-file-button">Выбрать</span>
                     </label>
                 </div>
 
-                <div class="form-file mb-3">
+                {{!-- <div class="form-file mb-3">
                     <input type="file" class="form-file-input" id="pictures" name="pictures" multiple accept="image/*">
                     <label class="form-file-label" for="pictures">
                         <span class="form-file-text" id="js-file-pictures-text">Дополнительные изображения (можно выбрать несколько)</span>
                         <span class="form-file-button">Выбрать</span>
                     </label>
-                </div>
-
+                </div> --}}
+                <hr>
+                <p><b>Свойства</b></p>
 
 
 

@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     summ: DataTypes.INTEGER,
     name: DataTypes.STRING,
     payday: DataTypes.INTEGER,
+    items: DataTypes.INTEGER,
     description: DataTypes.TEXT
   }, {
     sequelize,

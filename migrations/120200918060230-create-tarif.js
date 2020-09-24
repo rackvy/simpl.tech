@@ -17,6 +17,9 @@ module.exports = {
       payday: {
         type: Sequelize.INTEGER
       },
+      items: {
+        type: Sequelize.INTEGER
+      },
       description: {
         type: Sequelize.TEXT
       },

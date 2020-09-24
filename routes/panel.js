@@ -152,18 +152,17 @@ router.get('/catalog/items', auth,  async (req, res) => {
     const user = await User.findByPk(req.session.userId)
     const tarif = await Tarif.findByPk(user.tarif_id)
     const cats = await Category.findAll({where:{user_id: req.session.userId}})
-    const items = await Catalog.findAll({where:{user_id: req.session.userId}})
-
+    const catalog = await Catalog.findAll({where:{user_id: req.session.userId}})
 
     res.render('panel/catalogItems', {
         layout: 'panel',
-        title: 'Список товаров',
+        title: 'Список товаров '+catalog.length+'/'+tarif.items,
         isCatalogItem: true,
         shop,
         user,
         tarif,
         cats,
-        items
+        catalog
     })
 })
     
@@ -176,7 +175,7 @@ router.get('/catalog/items/new', auth,  async (req, res) => {
 
     res.render('panel/catalogItemsNew', {
         layout: 'panel',
-        title: 'Список товаров',
+        title: 'Добавить новый товар',
         isCatalogItem: true,
         shop,
         user,
@@ -293,7 +292,7 @@ router.post('/shop', auth, async (req, res) => {
     }
 })
 
-router.post('/shop/add_logo', auth,  async (req, res) => {
+router.post('/shop/add_logo', auth, async (req, res) => {
     const result = await Shop.update(
         {
             logo: '/images/' + req.session.userId + '/logo/' + req.file.filename,
@@ -341,7 +340,6 @@ router.post('/profile/change_tarif', auth,  async (req, res) => {
     }
 })
 
-
 router.post('/shop/adress', auth,  async (req, res) => {
 
     const result = await Shop.update(
@@ -355,7 +353,6 @@ router.post('/shop/adress', auth,  async (req, res) => {
     }
 
 })
-
 
 router.post('/shop/texts', auth,  async (req, res) => {
     const result = await Shop.update(
@@ -399,8 +396,6 @@ router.post('/catalog/categorys', auth,  async (req, res) => {
     
 })
 
-
-
 router.post('/catalog/categorys/edit/:id', auth,  async (req, res) => {
     const id = req.params.id
     const result = await Category.update(
@@ -413,11 +408,45 @@ router.post('/catalog/categorys/edit/:id', auth,  async (req, res) => {
     if(result == 1){
         res.redirect('/panel/catalog/categorys')
     }
-
-
 })
 
 
+
+
+router.post('/catalog/items/new/', auth, async (req, res) => {
+    const catalog = await Catalog.findAll({where:{user_id: req.session.userId}})
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const cats = await Category.findAll({where:{user_id: req.session.userId}})
+
+    if(tarif.items <= catalog.length){
+        return res.render('panel/catalogItemsNew', {
+            layout: 'panel',
+            title: 'Список товаров',
+            isCatalogItem: true,
+            shop,
+            user,
+            tarif,
+            cats,
+            error: true,
+            message: 'Достигнуто максимальное количество товаров по вашему тарифу'
+        })
+    }
+    const {active, name, cat_id, articul, price, description} = req.body
+    const newItemCatalog = new Catalog({
+        active: active,
+        user_id: req.session.userId,
+        name: name,
+        cat_id: cat_id,
+        articul: articul,
+        price: price,
+        description: description,
+        picture: '/images/' + req.session.userId + '/catalog/' + req.file.filename,
+    })
+    await newItemCatalog.save()
+    return res.redirect('/panel/catalog/items/')
+})
 
 
 
