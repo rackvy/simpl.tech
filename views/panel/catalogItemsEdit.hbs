@@ -12,10 +12,10 @@
 
                 <div class="mb-3">
                     <label for="name" class="form-label"><b>Название товара</b></label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control" id="name" name="name" value="{{catalog.name}}" required>
                 </div>
                 <div class="form-check mb-3">
-                  <input class="form-check-input" type="checkbox" value="true" name="active" id="active" checked>
+                  <input class="form-check-input" type="checkbox" value="true" name="active" id="active" {{#if catalog.active}}checked{{/if}}>
                   <label class="form-check-label" for="active">
                     Активность
                   </label>
@@ -24,28 +24,30 @@
                     <label for="cat_id" class="form-label">Категория</label>
                     <select class="form-select" name="cat_id" id="cat_id" required>
                     {{#each cats}}
-                        <option value="{{this.id}}">{{this.name}}</option>
+                        <option value="{{this.id}}" {{#if_eq this.id catalog.cat_id}}selected{{/if_eq}}>{{this.name}}</option>
                     {{/each}}
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="articul" class="form-label">Артикул</label>
-                    <input type="text" class="form-control" id="articul" name="articul" >
+                    <input type="text" class="form-control" id="articul" name="articul" value="{{catalog.articul}}">
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Цена</label>
-                    <input type="number" class="form-control js-price-input" id="price" name="price" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                    <input type="number" class="form-control js-price-input" id="price" name="price" value="{{catalog.price}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                 </div>
                 <div class="mb-3">
                    <label for="description" class="form-label">Описание</label>
-                   <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                   <textarea class="form-control" id="description" name="description" rows="4">{{catalog.description}}</textarea>
                 </div>
                 <div class="form-file mb-3">
+                    
                     <input type="file" class="form-file-input" id="picture" name="file" accept="image/*" required>
                     <label class="form-file-label" for="picture">
-                        <span class="form-file-text" id="js-file-picture-text">Основное изображение</span>
+                        <span class="form-file-text" id="js-file-picture-text">Выбрать другое основное изображение</span>
                         <span class="form-file-button">Выбрать</span>
                     </label>
+                    <p><br><img src="{{catalog.picture}}" style="width:20%"></p>
                 </div>
 
                 {{!-- <div class="form-file mb-3">
@@ -63,6 +65,7 @@
                 <input type="hidden" name="_csrf" value="{{csrf}}">
                 <input type="hidden" name="user_id" value="{{userId}}">
                 <input type="hidden" name="shopid" value="{{shop.id}}">
+                <input type="hidden" name="item" value="{{catalog.id}}">
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form>
 

@@ -1,6 +1,10 @@
 (function () {
     'use strict'
 
+    function cislo(){
+      if (event.keyCode < 48 || event.keyCode > 57)
+      event.returnValue= false;
+    }
 
     function clock() {
       var d = new Date();
@@ -28,103 +32,101 @@
     }
     clock();
   
-      document.querySelectorAll('.js-price').forEach(node => {
-        node.textContent = new Intl.NumberFormat('ru-RU', {
-          currency: 'rub',
-          style: 'currency'
-        }).format(node.textContent)
-      })
+    document.querySelectorAll('.js-price').forEach(node => {
+      node.textContent = new Intl.NumberFormat('ru-RU', {
+        currency: 'rub',
+        style: 'currency'
+      }).format(node.textContent)
+    })
 
-      var selector = document.getElementById("inputPhone");
-      var selectorWA = document.getElementById("validation-wa");
-      var selectorT = document.getElementById("validation-telegram");
-      var im = new Inputmask("+7 (999) 999-99-99");
+    var selector = document.getElementById("inputPhone");
+    var selectorWA = document.getElementById("validation-wa");
+    var selectorT = document.getElementById("validation-telegram");
+    var im = new Inputmask("+7 (999) 999-99-99");
 
-      if(selector != null){
-        im.mask(selector);
-      }
-      if(selectorWA != null){
-        im.mask(selectorWA);
-      }
-      if(selectorT != null){
-        im.mask(selectorT);
-      }
+    if(selector != null){
+      im.mask(selector);
+    }
+    if(selectorWA != null){
+      im.mask(selectorWA);
+    }
+    if(selectorT != null){
+      im.mask(selectorT);
+    }
 
-      var file = document.getElementById("customFile");
-      if(file != null){
-        file.onchange = function(){
-          if(file.files.length > 0)
-          {
-              document.getElementById('js-custom-file-label').innerHTML = file.files[0].name;
-          }
-        };
-      }
-
-      var file2 = document.getElementById("picture");
-      if(file2 != null){
-        file2.onchange = function(){
-          if(file2.files.length > 0)
-          {
-              document.getElementById('js-file-picture-text').innerHTML = file2.files[0].name;
-          }
-        };
-      }
-
-      var files = document.getElementById("pictures");
-      if(files != null){
-        files.onchange = function(){
-          if(files.files.length > 0)
-          {
-              document.getElementById('js-file-pictures-text').innerHTML = 'Выбрано файлов ' + files.files.length;
-          }
-        };
-      }
-
-      var selectTarif = document.getElementById('js-select-tarif');
-      if(selectTarif != null){
-        selectTarif.onchange = function(){
-          var value = selectTarif.options[selectTarif.selectedIndex].value;
-          var els = document.getElementsByClassName('js-tarif-hide');
-          Array.prototype.forEach.call(els, function(el) {
-            el.style.display = 'none';
-          });
-          document.getElementById('js-card-'+value).style.display = 'block';
+    var file = document.getElementById("customFile");
+    if(file != null){
+      file.onchange = function(){
+        if(file.files.length > 0)
+        {
+            document.getElementById('js-custom-file-label').innerHTML = file.files[0].name;
         }
-      }
+      };
+    }
 
-      var urlForQR = document.getElementById('js-url');
-      if(urlForQR != null){
-        new QRCode(document.getElementById("js-qrcode"), urlForQR.value);
-      }
+    var file2 = document.getElementById("picture");
+    if(file2 != null){
+      file2.onchange = function(){
+        if(file2.files.length > 0)
+        {
+            document.getElementById('js-file-picture-text').innerHTML = file2.files[0].name;
+        }
+      };
+    }
 
+    var files = document.getElementById("pictures");
+    if(files != null){
+      files.onchange = function(){
+        if(files.files.length > 0)
+        {
+            document.getElementById('js-file-pictures-text').innerHTML = 'Выбрано файлов ' + files.files.length;
+        }
+      };
+    }
 
-      var buttonAddNewAdress = document.getElementById('js-add-new-adress');
-      if(buttonAddNewAdress != null){
-        buttonAddNewAdress.addEventListener( "click" , () => {
-          let i = document.getElementById('js-add-adress').dataset.i;
-          i++;
-          document.getElementById('js-add-adress').dataset.i = i;
-          let templete = document.createElement('div');
-          templete.innerHTML = 
-          '<div class="mb-3">'+
-              '<label for="adress'+i+'" class="form-label">Адрес магазина</label>'+
-              '<input type="text" class="form-control" name="shops['+i+'][adress]" id="adress'+i+'" placeholder="">'+
-          '</div>'+
-          '<div class="mb-3">'+
-              '<label for="desc'+i+'" class="form-label">Описание магазина</label>'+
-              '<textarea class="form-control" id="desc'+i+'" name="shops['+i+'][desc]" rows="3"></textarea>'+
-          '</div>';
-  
-          document.getElementById('js-add-adress').append(templete);
-          
+    var selectTarif = document.getElementById('js-select-tarif');
+    if(selectTarif != null){
+      selectTarif.onchange = function(){
+        var value = selectTarif.options[selectTarif.selectedIndex].value;
+        var els = document.getElementsByClassName('js-tarif-hide');
+        Array.prototype.forEach.call(els, function(el) {
+          el.style.display = 'none';
         });
+        document.getElementById('js-card-'+value).style.display = 'block';
       }
-      
+    }
 
+    var urlForQR = document.getElementById('js-url');
+    if(urlForQR != null){
+      new QRCode(document.getElementById("js-qrcode"), urlForQR.value);
+    }
 
-      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
-      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-      })
+    var buttonAddNewAdress = document.getElementById('js-add-new-adress');
+    if(buttonAddNewAdress != null){
+      buttonAddNewAdress.addEventListener( "click" , () => {
+        let i = document.getElementById('js-add-adress').dataset.i;
+        i++;
+        document.getElementById('js-add-adress').dataset.i = i;
+        let templete = document.createElement('div');
+        templete.innerHTML = 
+        '<div class="mb-3">'+
+            '<label for="adress'+i+'" class="form-label">Адрес магазина</label>'+
+            '<input type="text" class="form-control" name="shops['+i+'][adress]" id="adress'+i+'" placeholder="">'+
+        '</div>'+
+        '<div class="mb-3">'+
+            '<label for="desc'+i+'" class="form-label">Описание магазина</label>'+
+            '<textarea class="form-control" id="desc'+i+'" name="shops['+i+'][desc]" rows="3"></textarea>'+
+        '</div>';
+
+        document.getElementById('js-add-adress').append(templete);
+        
+      });
+    }
+    
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
   
+    
 })()

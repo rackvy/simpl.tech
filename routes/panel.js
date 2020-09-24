@@ -166,23 +166,56 @@ router.get('/catalog/items', auth,  async (req, res) => {
     })
 })
     
-router.get('/catalog/items/new', auth,  async (req, res) => {
-    const shop = await Shop.findOne({where:{user_id: req.session.userId}})
-    const user = await User.findByPk(req.session.userId)
-    const tarif = await Tarif.findByPk(user.tarif_id)
-    const cats = await Category.findAll({where:{user_id: req.session.userId}})
+    router.get('/catalog/items/new', auth,  async (req, res) => {
+        const shop = await Shop.findOne({where:{user_id: req.session.userId}})
+        const user = await User.findByPk(req.session.userId)
+        const tarif = await Tarif.findByPk(user.tarif_id)
+        const cats = await Category.findAll({where:{user_id: req.session.userId}})
 
 
-    res.render('panel/catalogItemsNew', {
-        layout: 'panel',
-        title: 'Добавить новый товар',
-        isCatalogItem: true,
-        shop,
-        user,
-        tarif,
-        cats
+        res.render('panel/catalogItemsNew', {
+            layout: 'panel',
+            title: 'Добавить новый товар',
+            isCatalogItem: true,
+            shop,
+            user,
+            tarif,
+            cats
+        })
     })
-})
+
+    router.get('/catalog/items/delete/:id', auth,  async (req, res) => {
+        const id = req.params.id
+        Catalog.destroy({
+            where: {
+              id: id,
+              user_id: req.session.userId
+            }
+          }).then((err) => {
+            return res.redirect('/panel/catalog/items')
+          })
+    })
+
+    router.get('/catalog/items/edit/:id', auth,  async (req, res) => {
+        const id = req.params.id
+        const shop = await Shop.findOne({where:{user_id: req.session.userId}})
+        const user = await User.findByPk(req.session.userId)
+        const tarif = await Tarif.findByPk(user.tarif_id)
+        const cats = await Category.findAll({where:{user_id: req.session.userId}})
+        const catalog = await Catalog.findByPk(id)
+
+        res.render('panel/catalogItemsEdit', {
+            layout: 'panel',
+            title: 'Добавить новый товар',
+            isCatalogItem: true,
+            shop,
+            user,
+            tarif,
+            cats,
+            catalog
+        })
+    })
+
     
 
 
