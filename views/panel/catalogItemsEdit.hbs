@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-file mb-3">
                     
-                    <input type="file" class="form-file-input" id="picture" name="file" accept="image/*" required>
+                    <input type="file" class="form-file-input" id="picture" name="file" accept="image/*" value="{{catalog.picture}}">
                     <label class="form-file-label" for="picture">
                         <span class="form-file-text" id="js-file-picture-text">Выбрать другое основное изображение</span>
                         <span class="form-file-button">Выбрать</span>
@@ -60,8 +60,29 @@
                 <hr>
                 <p><b>Свойства</b></p>
 
+                <div id="js-properties" data-count="0">
+                {{#each catalog.properties}}
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="prop[{{@key}}][key]" class="form-label">Заголовок свойства</label>
+                            <input type="text" class="form-control" id="prop[{{@key}}][key]" name="prop[{{@key}}][key]" value="{{key}}">
+                            <input type="hidden" name="prop[{{@key}}][k]" value="0">
+                        </div>
+                        <div class="col-6">
+                            <div id="js-div-prop{{@key}}" data-cp="0">
+                                <label class="form-label">Значения свойства</label>
+                                {{#each this.val}}
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" name="prop[{{../k}}][val][{{@key}}]" value="{{this}}">
+                                    </div>
+                                {{/each}}
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="js-addprop{{@key}}">Добавить ещё свойство</button>
+                        </div>
+                    </div>
+                {{/each}}
 
-
+                </div>
                 <input type="hidden" name="_csrf" value="{{csrf}}">
                 <input type="hidden" name="user_id" value="{{userId}}">
                 <input type="hidden" name="shopid" value="{{shop.id}}">

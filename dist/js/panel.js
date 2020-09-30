@@ -128,5 +128,75 @@
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
   
+
+    var buttonNewProp1 = document.getElementById('js-addprop0');
+    if(buttonNewProp1 != null){
+      buttonNewProp1.addEventListener( "click" , () => {
+        let i = document.getElementById('js-div-prop0').dataset.cp;
+        i++;
+        document.getElementById('js-div-prop0').dataset.cp = i;
+        let templete = document.createElement('div');
+        templete.innerHTML = 
+        '<div class="mb-2">'+
+        '<input type="text" class="form-control" id="prop[0][val]" name="prop[0][val]['+i+']" >'+
+        '</div>';
+
+        document.getElementById('js-div-prop0').append(templete);
+      })
+    }
+
+
+    var buttonNewProp2 = document.getElementById('js-addprop1');
+    if(buttonNewProp2 != null){
+      buttonNewProp2.addEventListener( "click" , () => {
+        let i = document.getElementById('js-div-prop1').dataset.cp;
+        i++;
+        document.getElementById('js-div-prop1').dataset.cp = i;
+        let templete = document.createElement('div');
+        templete.innerHTML = 
+        '<div class="mb-2">'+
+        '<input type="text" class="form-control" id="prop[1][val]" name="prop[1][val]['+i+']" >'+
+        '</div>';
+
+        document.getElementById('js-div-prop1').append(templete);
+      })
+    }
+
+
+    var buttonNewProp3 = document.getElementById('js-addprop2');
+    if(buttonNewProp3 != null){
+      buttonNewProp3.addEventListener( "click" , () => {
+        let i = document.getElementById('js-div-prop2').dataset.cp;
+        i++;
+        document.getElementById('js-div-prop2').dataset.cp = i;
+        let templete = document.createElement('div');
+        templete.innerHTML = 
+        '<div class="mb-2">'+
+        '<input type="text" class="form-control" id="prop[2][val]" name="prop[2][val]['+i+']" >'+
+        '</div>';
+
+        document.getElementById('js-div-prop2').append(templete);
+      })
+    }
+
+    var buttonNewProp4 = document.getElementById('js-addprop3');
+    if(buttonNewProp4 != null){
+      buttonNewProp4.addEventListener( "click" , () => {
+        let i = document.getElementById('js-div-prop3').dataset.cp;
+        i++;
+        document.getElementById('js-div-prop3').dataset.cp = i;
+        let templete = document.createElement('div');
+        templete.innerHTML = 
+        '<div class="mb-2">'+
+        '<input type="text" class="form-control" id="prop[3][val]" name="prop[3][val]['+i+']" >'+
+        '</div>';
+
+        document.getElementById('js-div-prop3').append(templete);
+      })
+    }
+
+
+
+    
     
 })()

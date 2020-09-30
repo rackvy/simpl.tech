@@ -57,7 +57,73 @@
                 </div> --}}
                 <hr>
                 <p><b>Свойства</b></p>
+                <div id="js-properties" data-count="0">
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="prop[0][key]" class="form-label">Заголовок свойства</label>
+                            <input type="text" class="form-control" id="prop[0][key]" name="prop[0][key]">
+                            <input type="hidden" name="prop[0][k]" value="0">
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label for="prop[0][val]" class="form-label">Значения свойства</label>
+                                <input type="text" class="form-control" id="prop[0][val]" name="prop[0][val][0]" >
+                            </div>
+                            <div id="js-div-prop0" data-cp="0"></div>
+                            <button type="button" class="btn btn-secondary" id="js-addprop0">Добавить ещё свойство</button>
+                        </div>
+                    </div>
 
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="prop[1][key]" class="form-label">Заголовок свойства</label>
+                            <input type="text" class="form-control" id="prop[1][key]" name="prop[1][key]" >
+                            <input type="hidden" name="prop[1][k]" value="1">
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label for="prop[1][val]" class="form-label">Значения свойства</label>
+                                <input type="text" class="form-control" id="prop[1][val]" name="prop[1][val][0]" >
+                            </div>
+                            <div id="js-div-prop1" data-cp="0"></div>
+                            <button type="button" class="btn btn-secondary" id="js-addprop1">Добавить ещё свойство</button>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="prop[2][key]" class="form-label">Заголовок свойства</label>
+                            <input type="text" class="form-control" id="prop[2][key]" name="prop[2][key]" >
+                            <input type="hidden" name="prop[2][k]" value="2">
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label for="prop[2][val]" class="form-label">Значения свойства</label>
+                                <input type="text" class="form-control" id="prop[2][val]" name="prop[2][val][0]" >
+                            </div>
+                            <div id="js-div-prop2" data-cp="0"></div>
+                            <button type="button" class="btn btn-secondary" id="js-addprop2">Добавить ещё свойство</button>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="prop[3][key]" class="form-label">Заголовок свойства</label>
+                            <input type="text" class="form-control" id="prop[3][key]" name="prop[3][key]" >
+                            <input type="hidden" name="prop[3][k]" value="3">
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label for="prop[3][val]" class="form-label">Значения свойства</label>
+                                <input type="text" class="form-control" id="prop[3][val]" name="prop[3][val][0]" >
+                            </div>
+                            <div id="js-div-prop3" data-cp="0"></div>
+                            <button type="button" class="btn btn-secondary" id="js-addprop3">Добавить ещё свойство</button>
+                        </div>
+                    </div>
+
+                </div>
+                
 
 
                 <input type="hidden" name="_csrf" value="{{csrf}}">

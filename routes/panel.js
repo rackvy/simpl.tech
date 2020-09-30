@@ -3,6 +3,7 @@ const router = Router()
 const bcrypt = require('bcryptjs')
 const fs = require('fs')
 const path = require('path')
+const multer = require('multer')
 
 const auth = require('../middleware/auth')
 
@@ -206,7 +207,7 @@ router.get('/catalog/items', auth,  async (req, res) => {
 
         res.render('panel/catalogItemsEdit', {
             layout: 'panel',
-            title: 'Добавить новый товар',
+            title: 'Редактировать товар '+catalog.name,
             isCatalogItem: true,
             shop,
             user,
@@ -443,9 +444,6 @@ router.post('/catalog/categorys/edit/:id', auth,  async (req, res) => {
     }
 })
 
-
-
-
 router.post('/catalog/items/new/', auth, async (req, res) => {
     const catalog = await Catalog.findAll({where:{user_id: req.session.userId}})
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
@@ -466,7 +464,7 @@ router.post('/catalog/items/new/', auth, async (req, res) => {
             message: 'Достигнуто максимальное количество товаров по вашему тарифу'
         })
     }
-    const {active, name, cat_id, articul, price, description} = req.body
+    const {active, name, cat_id, articul, price, description, prop} = req.body
     const newItemCatalog = new Catalog({
         active: active,
         user_id: req.session.userId,
@@ -476,11 +474,38 @@ router.post('/catalog/items/new/', auth, async (req, res) => {
         price: price,
         description: description,
         picture: '/images/' + req.session.userId + '/catalog/' + req.file.filename,
+        properties: prop
     })
     await newItemCatalog.save()
     return res.redirect('/panel/catalog/items/')
 })
 
+router.post('/catalog/items/edit/:id', auth, async (req, res) => {
+    const catalog = await Catalog.findAll({where:{user_id: req.session.userId}})
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const cats = await Category.findAll({where:{user_id: req.session.userId}})
+    const {active, name, cat_id, articul, price, description, prop} = req.body
+  
+    const result = await Catalog.update(
+        {
+            active: active,
+            user_id: req.session.userId,
+            name: name,
+            cat_id: cat_id,
+            articul: articul,
+            price: price,
+            description: description,
+            //picture: '/images/' + req.session.userId + '/catalog/' + req.file.filename,
+            properties: prop
+        },
+        {where: {id: req.body.item, user_id: req.session.userId}}
+    )
+    if(result == 1){
+        res.redirect('/panel/catalog')
+    }
+})
 
 
 module.exports = router
