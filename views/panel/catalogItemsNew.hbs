@@ -37,8 +37,9 @@
                     <input type="number" class="form-control js-price-input" id="price" name="price" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                 </div>
                 <div class="mb-3">
-                   <label for="description" class="form-label">Описание</label>
-                   <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                    <label for="description" class="form-label">Описание</label>
+                    <div id="editorjs" class="form-control"></div>
+                    <textarea class="form-control" id="description" name="description" rows="4" style="display: none;;"></textarea>
                 </div>
                 <div class="form-file mb-3">
                     <input type="file" class="form-file-input" id="picture" name="file" accept="image/*" required>
@@ -129,7 +130,7 @@
                 <input type="hidden" name="_csrf" value="{{csrf}}">
                 <input type="hidden" name="user_id" value="{{userId}}">
                 <input type="hidden" name="shopid" value="{{shop.id}}">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary" id="saveButton">Сохранить</button>
             </form>
 
 
@@ -140,4 +141,90 @@
 </div>
 
 
+<script src="/js/editorjs/editor.js"></script><!-- editor -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script><!-- Image -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script><!-- Delimiter -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script><!-- List -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script><!-- Checklist -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script><!-- Quote -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script><!-- Code -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script><!-- Embed -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script><!-- Table -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script><!-- Link -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script><!-- Warning -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script><!-- Marker -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
 
+<script>
+    const saveButton = document.getElementById('saveButton');
+
+    var editor = new EditorJS({
+      holderId: 'editorjs',
+      tools: {
+        header: {
+          class: Header,
+          inlineToolbar: ['link'],
+          config: {
+            placeholder: 'Header'
+          },
+          shortcut: 'CMD+SHIFT+H'
+        },
+        image: {
+          class: SimpleImage,
+          inlineToolbar: ['link'],
+        },
+        list: {
+          class: List,
+          inlineToolbar: true,
+          shortcut: 'CMD+SHIFT+L'
+        },
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+        quote: {
+          class: Quote,
+          inlineToolbar: true,
+          config: {
+            quotePlaceholder: 'Enter a quote',
+            captionPlaceholder: 'Quote\'s author',
+          },
+          shortcut: 'CMD+SHIFT+O'
+        },
+        warning: Warning,
+        marker: {
+          class:  Marker,
+          shortcut: 'CMD+SHIFT+M'
+        },
+        code: {
+          class:  CodeTool,
+          shortcut: 'CMD+SHIFT+C'
+        },
+        delimiter: Delimiter,
+        inlineCode: {
+          class: InlineCode,
+          shortcut: 'CMD+SHIFT+C'
+        },
+        linkTool: LinkTool,
+        embed: Embed,
+        table: {
+          class: Table,
+          inlineToolbar: true,
+          shortcut: 'CMD+ALT+T'
+        },
+      },
+      onReady: function(){
+        saveButton.click();
+      },
+      onChange: function() {
+        console.log('something changed');
+      }
+    });
+
+    saveButton.addEventListener('click', function () {
+      editor.save().then((savedData) => {
+        document.getElementById('description').value = JSON.stringify(savedData);
+      });
+    });
+</script>

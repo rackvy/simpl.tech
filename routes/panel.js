@@ -487,7 +487,7 @@ router.post('/catalog/items/edit/:id', auth, async (req, res) => {
     const tarif = await Tarif.findByPk(user.tarif_id)
     const cats = await Category.findAll({where:{user_id: req.session.userId}})
     const {active, name, cat_id, articul, price, description, prop} = req.body
-  
+    
     const result = await Catalog.update(
         {
             active: active,
@@ -497,13 +497,20 @@ router.post('/catalog/items/edit/:id', auth, async (req, res) => {
             articul: articul,
             price: price,
             description: description,
-            //picture: '/images/' + req.session.userId + '/catalog/' + req.file.filename,
             properties: prop
         },
         {where: {id: req.body.item, user_id: req.session.userId}}
     )
+    if(req.file != null){
+        const resultPict = await Catalog.update(
+            {
+                picture: '/images/' + req.session.userId + '/catalog/' + req.file.filename,
+            },
+            {where: {id: req.body.item, user_id: req.session.userId}}
+        )
+    }
     if(result == 1){
-        res.redirect('/panel/catalog')
+        res.redirect('/panel/catalog/items/')
     }
 })
 

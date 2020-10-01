@@ -68,7 +68,7 @@ router.post('/register', async function(req, res) {
             role: "user",
             password: hashPassword,
             salt: salt,
-            tarif_id: 3
+            tarif_id: 2
         })
         await user.save()
         req.session.isAuth = true

@@ -138,7 +138,7 @@
         let templete = document.createElement('div');
         templete.innerHTML = 
         '<div class="mb-2">'+
-        '<input type="text" class="form-control" id="prop[0][val]" name="prop[0][val]['+i+']" >'+
+        '<input type="text" class="form-control" id="prop[0][val]" name="prop[0][val][]" >'+
         '</div>';
 
         document.getElementById('js-div-prop0').append(templete);
@@ -155,7 +155,7 @@
         let templete = document.createElement('div');
         templete.innerHTML = 
         '<div class="mb-2">'+
-        '<input type="text" class="form-control" id="prop[1][val]" name="prop[1][val]['+i+']" >'+
+        '<input type="text" class="form-control" id="prop[1][val]" name="prop[1][val][]" >'+
         '</div>';
 
         document.getElementById('js-div-prop1').append(templete);
@@ -172,7 +172,7 @@
         let templete = document.createElement('div');
         templete.innerHTML = 
         '<div class="mb-2">'+
-        '<input type="text" class="form-control" id="prop[2][val]" name="prop[2][val]['+i+']" >'+
+        '<input type="text" class="form-control" id="prop[2][val]" name="prop[2][val][]" >'+
         '</div>';
 
         document.getElementById('js-div-prop2').append(templete);
@@ -188,13 +188,31 @@
         let templete = document.createElement('div');
         templete.innerHTML = 
         '<div class="mb-2">'+
-        '<input type="text" class="form-control" id="prop[3][val]" name="prop[3][val]['+i+']" >'+
+        '<input type="text" class="form-control" id="prop[3][val]" name="prop[3][val][]" >'+
         '</div>';
 
         document.getElementById('js-div-prop3').append(templete);
       })
     }
 
+
+
+    var buttonDeletePicture = document.getElementById('js-deletePicture');
+    if(buttonDeletePicture != null){
+      buttonDeletePicture.addEventListener( "click" , () => {
+        document.getElementById('js-divForNewPicture').innerHTML = "";
+        let templete = document.createElement('div');
+        templete.innerHTML = 
+        '<input type="file" class="form-file-input" id="picture" name="file" accept="image/*" value="" required>'+
+        '<label class="form-file-label" for="picture">'+
+            '<span class="form-file-text" id="js-file-picture-text">Выбрать другое основное изображение</span>'+
+            '<span class="form-file-button">Выбрать</span>'+
+        '</label>';
+
+        document.getElementById('js-divForNewPicture').append(templete);
+
+      });
+    }
 
 
     

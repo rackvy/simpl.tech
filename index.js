@@ -34,10 +34,12 @@ const hbs = exphbs.create({
             } else {
                 return opts.inverse(this)
             }
+        },
+        encodeMyString: function(inputData){
+            return new Handlebars.SafeString(inputData)
         }
     }
 })
-
 
 const PORT = process.env.PORT || 80
 

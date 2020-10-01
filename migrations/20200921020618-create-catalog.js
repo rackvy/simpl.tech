@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.REAL
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.JSON
       },
       picture: {
         type: Sequelize.STRING

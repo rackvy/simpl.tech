@@ -38,15 +38,15 @@
             <h4>Тарифный план</h4>
             <form method="POST" action="/panel/profile/change_tarif" class="mb-4">
                 <select class="form-select mb-2" name="tarif_id" id="js-select-tarif">
-                    <option value="3"{{#if_eq user.tarif_id 3}} selected{{/if_eq}}>Бесплатный</option>
-                    <option value="4"{{#if_eq user.tarif_id 4}} selected{{/if_eq}}>990 р/месяц</option>
-                    <option value="5"{{#if_eq user.tarif_id 5}} selected{{/if_eq}}>1 980 р/месяц</option>
+                    <option value="2"{{#if_eq user.tarif_id 2}} selected{{/if_eq}}>Бесплатный</option>
+                    <option value="3"{{#if_eq user.tarif_id 3}} selected{{/if_eq}}>990 р/месяц</option>
+                    <option value="4"{{#if_eq user.tarif_id 4}} selected{{/if_eq}}>1 980 р/месяц</option>
                 </select>
                 <input type="hidden" name="_csrf" value="{{csrf}}">
                 <input type="hidden" name="id" value="{{userId}}">
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form>
-            <div id="js-card-3" class="card js-tarif-hide"{{#if_eq user.tarif_id 3}} style="display: block;"{{else}} style="display: none;"{{/if_eq}}>
+            <div id="js-card-3" class="card js-tarif-hide"{{#if_eq user.tarif_id 2}} style="display: block;"{{else}} style="display: none;"{{/if_eq}}>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item check-check"><strong>50</strong> товаров</li>
                     <li class="list-group-item check-check">Панель управления</li>
@@ -54,7 +54,7 @@
                     <li class="list-group-item check-check">Уведомления на почту</li>
                 </ul>
             </div>
-            <div id="js-card-4" class="card js-tarif-hide"{{#if_eq user.tarif_id 4}} style="display: block;"{{else}} style="display: none;"{{/if_eq}}>
+            <div id="js-card-4" class="card js-tarif-hide"{{#if_eq user.tarif_id 3}} style="display: block;"{{else}} style="display: none;"{{/if_eq}}>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item check-check"><strong>200</strong> товаров</li>
                     <li class="list-group-item check-check">Панель управления</li>
@@ -63,7 +63,7 @@
                     <li class="list-group-item check-check">Уведомления о заказах в мессенджеры</li>
                 </ul>
             </div>
-            <div id="js-card-5" class="card js-tarif-hide"{{#if_eq user.tarif_id 5}} style="display: block;"{{else}} style="display: none;"{{/if_eq}}>
+            <div id="js-card-5" class="card js-tarif-hide"{{#if_eq user.tarif_id 4}} style="display: block;"{{else}} style="display: none;"{{/if_eq}}>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item check-check"><strong>Безграничное</strong> число товаров</li>
                     <li class="list-group-item check-check">Панель управления</li>
