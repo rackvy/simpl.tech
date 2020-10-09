@@ -24,5 +24,8 @@ var fileFilter = (req, file, cb) => {
 
 module.exports = multer({
     storage,
+    limits:{
+        fileSize: 1024 * 512
+    },
     fileFilter
 })

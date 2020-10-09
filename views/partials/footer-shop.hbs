@@ -1,0 +1,62 @@
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <a href="/{{shop.url}}"><img src="{{shop.logo}}" class="logo"></a>
+            </div>
+            <div class="col-10 text-right social-links">
+                {{#if shop.wa}}
+                    <a href="https://wa.me/{{shop.wa}}" id="whatsapp" data-toggle="tooltip" target="_blank" title="Напишите нам в WhatsApp"><img src="/images/wa.svg"></a>
+                {{/if}}
+                {{#if shop.telegram}}
+                    <a href="https://t-do.ru/{{shop.telegram}}" target="_blank" id="telegram"><img src="/images/telegram.svg"></a>
+                {{/if}}
+                {{#if shop.instagram}}
+                    <a href="{{shop.instagram}}" target="_blank" id="instagram"><img src="/images/instagram.svg"></a>
+                {{/if}}
+                {{#if shop.vk}}
+                    <a href="{{shop.vk}}" target="_blank" target="_blank" id="vk"><img src="/images/vk.svg"></a>
+                {{/if}}
+                {{#if shop.fb}}
+                    <a href="{{shop.fb}}" target="_blank" target="_blank" id="fb"><img src="/images/fb.svg"></a>
+                {{/if}}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <p><b>Каталог</b></p>
+                {{#each catogorys}}
+					<p class="">
+						<a href="/{{../shop.url}}/catalog/section/{{id}}">
+							{{name}}
+						</a>
+					</p>
+                {{/each}}
+            </div>
+            <div class="col-md-3">
+                <p><b>Информация</b></p>
+                {{#if shop.adresses}}<p><a href="/{{shop.url}}/contacts/">Адреса магазинов</a></p>{{/if}}
+                {{#if shop.texts}}<p><a href="/{{shop.url}}/payment_delivery/">Оплата и доставка</a></p>{{/if}}
+                <p><a href="/{{shop.url}}//">Политика конфиденциальности</a></p>
+                <p><a href="/{{shop.url}}//">Пользовательское соглашение</a></p>
+            </div>
+            <div class="col-md-6 text-right">
+                {{#if shop.phone}}<p><a href="tel:{{shop.phone}}" class="footer-phone">{{shop.phone}}</a></p>{{/if}}
+                <br>
+                {{shop.name}} 2020
+            </div>
+        </div>
+        <hr>
+        <div class="text-center">{{shop.description}}</div>
+    </div>
+</footer>
+<div class="after-footer text-center p-2">
+    <a href="/"><img src="/images/logoD.svg" class="simple_platform_logo"></a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/inputmask.min.js"></script>
+<script src="/js/siema.min.js"></script>
+<script src="/js/shop.js"></script>

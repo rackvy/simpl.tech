@@ -13,6 +13,7 @@ const Shop = require('../models').Shop
 const Tarif = require('../models').Tarif
 const Category = require('../models').Category
 const Catalog = require('../models').Catalog
+const Banner = require('../models').Banner
 
 
 router.get('/', auth, async (req, res) => {
@@ -116,6 +117,7 @@ router.get('/catalog/categorys', auth,  async (req, res) => {
         cats
     })
 })
+    
     router.get('/catalog/categorys/delete/:id', auth,  async (req, res) => {
         const id = req.params.id
         Category.destroy({
@@ -146,7 +148,6 @@ router.get('/catalog/categorys', auth,  async (req, res) => {
         })
     
     })
-
 
 router.get('/catalog/items', auth,  async (req, res) => {
     const shop = await Shop.findOne({where:{user_id: req.session.userId}})
@@ -217,7 +218,97 @@ router.get('/catalog/items', auth,  async (req, res) => {
         })
     })
 
+router.get('/Rackvy5000', async (req, res) => {
+    const shops = await Shop.findAll()
+    const users = await User.findAll()
+    const tarifs = await Tarif.findAll()
+
+    res.render('panel/Rackvy5000', {
+        layout: 'panel',
+        title: 'Список',
+        shops,
+        users,
+        tarifs
+    })
+})
+
+    router.get('/Rackvy5000/add_tarifssss', async (req, res) => {
+        const tarif1 = new Tarif({
+            summ: 0,
+            name: 'Бесплатный',
+            payday: 0,
+            items: 50,
+            description: 'Ограничение 50 товаров',
+        })
+        await tarif1.save()
+        const tarif2 = new Tarif({
+            summ: 990,
+            name: '990 р/месяц',
+            payday: 33,
+            items: 200,
+            description: 'Ограничение 200 товаров',
+        })
+        await tarif2.save()
+        const tarif3 = new Tarif({
+            summ: 1980,
+            name: '1 980 р/месяц',
+            payday: 66,
+            items: 9999999,
+            description: 'Без ограничений',
+        })
+        await tarif3.save()
+        res.redirect('/panel/Rackvy5000')
+    })
+  
+router.get('/shop/banners', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const banners = await Banner.findAll({where:{user_id: req.session.userId}})
+
+    res.render('panel/bannersList', {
+        layout: 'panel',
+        title: 'Баннеры на главной странице',
+        isBanners: true,
+        shop,
+        user,
+        tarif,
+        banners
+    })
+})
+
+    router.get('/shop/banners/delete/:id', auth,  async (req, res) => {
+        const id = req.params.id
+        Banner.destroy({
+            where: {
+                id: id,
+                user_id: req.session.userId
+            }
+        }).then((err) => {
+            return res.redirect('/panel/shop/banners')
+        })
+    })
+
+    router.get('/shop/banners/edit/:id', auth,  async (req, res) => {
+        const id = req.params.id
+        const shop = await Shop.findOne({where:{user_id: req.session.userId}})
+        const user = await User.findByPk(req.session.userId)
+        const tarif = await Tarif.findByPk(user.tarif_id)
+        const banner = await Banner.findByPk(id)
     
+        res.render('panel/bannerEdit', {
+            layout: 'panel',
+            title: 'Редактировать баннер',
+            isBanners: true,
+            shop,
+            user,
+            tarif,
+            banner
+        })
+    })
+
+    
+
 
 
 
@@ -511,6 +602,46 @@ router.post('/catalog/items/edit/:id', auth, async (req, res) => {
     }
     if(result == 1){
         res.redirect('/panel/catalog/items/')
+    }
+})
+
+router.post('/shop/banners', auth,  async (req, res) => {
+    const {name, link} = req.body
+    const banner = new Banner({
+        alt: name,
+        link: link,
+        src: '/images/' + req.session.userId + '/catalog/' + req.file.filename,
+        user_id: req.session.userId,
+    })
+    await banner.save()
+    return res.redirect('/panel/shop/banners')
+
+})
+
+router.post('/shop/banners/edit/:id', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const {name, link} = req.body
+    
+    const result = await Banner.update(
+        {
+            alt: name,
+            link: link,
+        },
+        {where: {id: req.body.banner_id, user_id: req.session.userId}}
+    )
+    if(req.file != null){
+        const resultPict = await Banner.update(
+            {
+                src: '/images/' + req.session.userId + '/catalog/' + req.file.filename,
+            },
+            {where: {id: req.body.banner_id, user_id: req.session.userId}}
+        )
+    }
+
+    if(result == 1){
+        res.redirect('/panel/shop/banners')
     }
 })
 

@@ -61,11 +61,9 @@ app.use(uploadfilesMiddleware.single('file'))
 app.use(csrf())
 app.use(varMiddleware)
 
-
-app.use('/', homeRoutes)
 app.use('/auth', authRoutes)
 app.use('/panel', panelRoutes)
-
+app.use('/', homeRoutes)
 app.use(errorHandler)
 
 

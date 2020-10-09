@@ -71,6 +71,11 @@
         {
             document.getElementById('js-file-picture-text').innerHTML = file2.files[0].name;
         }
+        if(file2.files[0].size > 307200){
+          alert("Файл слишком большой. Ограничение на фото 512Кб.");
+          file2.value = "";
+          document.getElementById('js-file-picture-text').innerHTML = 'Основное изображение';
+       }
       };
     }
 

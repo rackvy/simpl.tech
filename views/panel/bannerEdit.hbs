@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="block-style p-4">
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+
+
+            <form class="js-form needs-validation g-3" method="POST" action="" enctype="multipart/form-data">
+                <div class="form-file mb-3" id="js-divForNewPicture">
+                    <label for="picture" class="form-label">Баннер</label>
+                    <p>
+                        <img src="{{banner.src}}" class="img-fluid">
+                    </p>
+                    <button type="button" class="btn btn-secondary" id="js-deletePicture">Удалить картинку</button>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Название (ALT)*</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{banner.alt}}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="link" class="form-label">Ссылка</label>
+                    <input type="text" class="form-control" id="link" name="link" value="{{banner.link}}">
+                </div>
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="user_id" value="{{userId}}">
+                <input type="hidden" name="banner_id" value="{{banner.id}}">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+
+
+            
+        </div>
+    </div>
+
+</div>
+
+
+

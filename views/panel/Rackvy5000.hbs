@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="block-style p-4">
+            <h2>Users</h2>
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+
+
+            <div class="">
+                <table class="table table-striped table-hover">
+                      <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Телефон</th>
+                            <th scope="col">Почта</th>
+                            <th scope="col">Тариф</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each users}}
+                            <tr>
+                                <td>{{this.id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.phone}}</td>
+                                <td>{{this.email}}</td>
+                                <td>{{this.tarif_id}}</td>
+                            </tr>
+
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+
+
+            
+        </div>
+    </div>
+    <div class="col-md-12 mb-4">
+        <div class="block-style p-4">
+            <h2>Shops</h2>
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+
+
+            <div class="">
+                <table class="table table-striped table-hover">
+                      <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">URL</th>
+                            <th scope="col">Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each shops}}
+                            <tr>
+                                <td>{{this.id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.url}}</td>
+                                <td>{{this.description}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12 mb-4">
+        <div class="block-style p-4">
+            <h2>Tarifs</h2>
+                {{#if error}}
+                    <div class="alert alert-danger">{{ message}}</div>
+                {{/if}}
+                {{#if success}}
+                    <div class="alert alert-success">{{ message}}</div>
+                {{/if}}
+            <a href="/panel/Rackvy5000/add_tarifssss/">Создать тарифы</a>
+
+            <div class="">
+                <table class="table table-striped table-hover">
+                      <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">summ</th>
+                            <th scope="col">payday</th>
+                            <th scope="col">items</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each tarifs}}
+                            <tr>
+                                <td>{{this.id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.summ}}</td>
+                                <td>{{this.payday}}</td>
+                                <td>{{this.items}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
