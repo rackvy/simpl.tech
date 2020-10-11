@@ -1,10 +1,10 @@
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-2">
+            <div class="col-3 align-self-center">
                 <a href="/{{shop.url}}"><img src="{{shop.logo}}" class="logo"></a>
             </div>
-            <div class="col-10 text-right social-links">
+            <div class="col-9 align-self-center text-right social-links">
                 {{#if shop.wa}}
                     <a href="https://wa.me/{{shop.wa}}" id="whatsapp" data-toggle="tooltip" target="_blank" title="Напишите нам в WhatsApp"><img src="/images/wa.svg"></a>
                 {{/if}}
@@ -24,7 +24,7 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-6">
                 <p><b>Каталог</b></p>
                 {{#each catogorys}}
 					<p class="">
@@ -34,7 +34,7 @@
 					</p>
                 {{/each}}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-6">
                 <p><b>Информация</b></p>
                 {{#if shop.adresses}}<p><a href="/{{shop.url}}/contacts/">Адреса магазинов</a></p>{{/if}}
                 {{#if shop.texts}}<p><a href="/{{shop.url}}/payment_delivery/">Оплата и доставка</a></p>{{/if}}

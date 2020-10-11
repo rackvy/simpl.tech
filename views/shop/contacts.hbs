@@ -1,0 +1,13 @@
+<div class="container mb-4">
+    <h1 class="mb-2">Контакты {{shop.name}}</h1>
+    {{#each shops}}
+      <div class="catalog-card">
+        <h3>{{this.adress}}"</h3>
+        <p class="mb-3">
+            {{this.desc}}
+        </p>
+      </div>
+      <hr>
+    {{/each}}
+
+</div>

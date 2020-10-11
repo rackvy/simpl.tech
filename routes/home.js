@@ -62,6 +62,12 @@ router.get('/:code', async (req, res) => {
     const shopcode = req.params.code
 
     const shop = await Shop.findOne({where: {url: shopcode}})
+    if(shop == null){
+        return res.status(404).render('404', {
+            title: 'Страница не найдена'
+        })
+    }
+
     const banners = await Banner.findAll({where:{user_id: shop.user_id}})
     const catogorys = await Category.findAll({where:{user_id: shop.user_id}, order: [['id', 'ASC'],['name', 'ASC']]})
     const catalog = await Catalog.findAll({
@@ -69,17 +75,138 @@ router.get('/:code', async (req, res) => {
         order: [['id', 'ASC'],['name', 'ASC']],
         limit: 50
     })
-    if(shop == null){
-        return res.status(404).render('404', {
-            title: 'Страница не найдена'
-        })
-    }
     res.render('shop/main', {
         layout: 'shop',
         shop,
         banners,
         catogorys,
         catalog
+    })
+})
+
+router.get('/:code/catalog', async (req, res) => {
+    const shopcode = req.params.code
+
+    const shop = await Shop.findOne({where: {url: shopcode}})
+    if(shop == null){
+        return res.status(404).render('404', {
+            title: 'Страница не найдена'
+        })
+    }
+    const banners = await Banner.findAll({where:{user_id: shop.user_id}})
+    const catogorys = await Category.findAll({where:{user_id: shop.user_id}, order: [['id', 'ASC'],['name', 'ASC']]})
+    res.render('shop/catalog', {
+        layout: 'shop',
+        shop,
+        banners,
+        catogorys
+    })
+})
+
+router.get('/:code/catalog/section', async (req, res) => {
+    const shopcode = req.params.code
+
+    const shop = await Shop.findOne({where: {url: shopcode}})
+    if(shop == null){
+        return res.status(404).render('404', {
+            title: 'Страница не найдена'
+        })
+    }
+    res.redirect('/' + shopcode + '/catalog')
+})
+
+router.get('/:code/catalog/section/:id', async (req, res) => {
+    const shopcode = req.params.code
+
+    const shop = await Shop.findOne({where: {url: shopcode}})
+    if(shop == null){
+        return res.status(404).render('404', {
+            title: 'Страница не найдена'
+        })
+    }
+    const idCat = req.params.id
+    const catalog = await Catalog.findAll({
+        where:{user_id: shop.user_id, cat_id: idCat}, 
+        order: [['id', 'ASC'],['name', 'ASC']],
+        limit: 50
+    })
+    const catogory = await Category.findOne({where: {id: idCat, user_id: shop.user_id}})
+    res.render('shop/catalog-section', {
+        layout: 'shop',
+        shop,
+        catogory,
+        catalog,
+        title: catogory.name
+    })
+})
+
+router.get('/:code/catalog-detail/', async (req, res) => {
+    const shopcode = req.params.code
+
+    const shop = await Shop.findOne({where: {url: shopcode}})
+    if(shop == null){
+        return res.status(404).render('404', {
+            title: 'Страница не найдена'
+        })
+    }
+    res.redirect('/' + shopcode + '/catalog')
+})
+
+router.get('/:code/catalog-detail/:id', async (req, res) => {
+    const shopcode = req.params.code
+
+    const shop = await Shop.findOne({where: {url: shopcode}})
+    if(shop == null){
+        return res.status(404).render('404', {
+            title: 'Страница не найдена'
+        })
+    }
+    const item_id = req.params.id
+    const item = await Catalog.findOne({where:{user_id: shop.user_id, id: item_id}})
+    const catogory = await Category.findOne({where: {id: item.cat_id, user_id: shop.user_id}})
+    res.render('shop/catalog-item', {
+        layout: 'shop',
+        shop,
+        catogory,
+        item,
+        title: item.name
+    })
+})
+
+router.get('/:code/contacts/', async (req, res) => {
+    const shopcode = req.params.code
+
+    const shop = await Shop.findOne({where: {url: shopcode}})
+    if(shop == null){
+        return res.status(404).render('404', {
+            title: 'Страница не найдена'
+        })
+    }
+    const shops = JSON.parse(shop.adresses)
+    res.render('shop/contacts', {
+        layout: 'shop',
+        shop,
+        shops,
+        title: 'Контакты ' + shop.name
+    })
+})
+
+router.get('/:code/payment_delivery/', async (req, res) => {
+    const shopcode = req.params.code
+
+    const shop = await Shop.findOne({where: {url: shopcode}})
+    if(shop == null){
+        return res.status(404).render('404', {
+            title: 'Страница не найдена'
+        })
+    }
+    const texts = JSON.parse(shop.texts)
+
+    res.render('shop/payment_delivery', {
+        layout: 'shop',
+        shop,
+        texts,
+        title: 'Оплата и доставка'
     })
 })
 
