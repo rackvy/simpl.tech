@@ -36,8 +36,7 @@
                         const saveButton = document.getElementById('saveButton');
 
                         var editor = new EditorJS({
-                        holderId: 'editorjs',
-                        readOnly: true,
+                        instead: 'editorjs',
                         tools: {
                             header: {
                             class: Header,
@@ -106,7 +105,7 @@
                 {{/if}}
         </div>
         <div class="col-md-4 offset-md-1">
-            <form class="item-right-bar">
+            <form class="item-right-bar xs-hide">
                 {{#if item.articul}}<div class="articul mb-3">Артикул {{item.articul}}</div>{{/if}}
                 <div class="mb-3">
                     Цена:<br>
@@ -120,7 +119,7 @@
                             {{#each this.val}}
                                 <option value="{{this}}">{{this}}</option>
                             {{/each}}
-\                        </select>
+                        </select>
                     </div>
                   {{/if}}
                 {{/each}}
@@ -133,7 +132,35 @@
             </form>
         </div>
     </div>
-    
+</div>
+
+<div class="buy-button-block-mobile">
+    <form class="item-right-bar">
+        <div class="h-line" id="js-showAllProps"></div>
+        {{#if item.articul}}<div class="articul mb-1 xs-prop">Артикул {{item.articul}}</div>{{/if}}
+        <div class="mb-3">
+            Цена:<br>
+            <span class="price js-price">{{item.price}}</span>
+        </div>
+        {{#each item.properties}}
+            {{#if key}}
+            <div class="mb-2 xs-prop">
+                <label for="prop{{@key}}" class="form-label">{{key}}</label>
+                <select class="form-select" id="prop{{@key}}" name="{{key}}">
+                    {{#each this.val}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            {{/if}}
+        {{/each}}   
+        <button type="submit" class="btn btn-primary btn-block">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+                    </svg>
+            В корзину
+        </button>
+    </form>
 </div>
 
 

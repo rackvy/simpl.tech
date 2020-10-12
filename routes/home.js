@@ -131,12 +131,15 @@ router.get('/:code/catalog/section/:id', async (req, res) => {
         limit: 50
     })
     const catogory = await Category.findOne({where: {id: idCat, user_id: shop.user_id}})
+    const catogorys = await Category.findAll({where:{user_id: shop.user_id}, order: [['id', 'ASC'],['name', 'ASC']]})
+
     res.render('shop/catalog-section', {
         layout: 'shop',
         shop,
         catogory,
         catalog,
-        title: catogory.name
+        title: catogory.name,
+        catogorys
     })
 })
 
@@ -164,12 +167,15 @@ router.get('/:code/catalog-detail/:id', async (req, res) => {
     const item_id = req.params.id
     const item = await Catalog.findOne({where:{user_id: shop.user_id, id: item_id}})
     const catogory = await Category.findOne({where: {id: item.cat_id, user_id: shop.user_id}})
+    const catogorys = await Category.findAll({where:{user_id: shop.user_id}, order: [['id', 'ASC'],['name', 'ASC']]})
+
     res.render('shop/catalog-item', {
         layout: 'shop',
         shop,
         catogory,
         item,
-        title: item.name
+        title: item.name,
+        catogorys
     })
 })
 
@@ -183,11 +189,14 @@ router.get('/:code/contacts/', async (req, res) => {
         })
     }
     const shops = JSON.parse(shop.adresses)
+    const catogorys = await Category.findAll({where:{user_id: shop.user_id}, order: [['id', 'ASC'],['name', 'ASC']]})
+
     res.render('shop/contacts', {
         layout: 'shop',
         shop,
         shops,
-        title: 'Контакты ' + shop.name
+        title: 'Контакты ' + shop.name,
+        catogorys
     })
 })
 
@@ -201,12 +210,14 @@ router.get('/:code/payment_delivery/', async (req, res) => {
         })
     }
     const texts = JSON.parse(shop.texts)
+    const catogorys = await Category.findAll({where:{user_id: shop.user_id}, order: [['id', 'ASC'],['name', 'ASC']]})
 
     res.render('shop/payment_delivery', {
         layout: 'shop',
         shop,
         texts,
-        title: 'Оплата и доставка'
+        title: 'Оплата и доставка',
+        catogorys
     })
 })
 

@@ -307,7 +307,20 @@ router.get('/shop/banners', auth,  async (req, res) => {
         })
     })
 
-    
+router.get('/catalog/import', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+
+    res.render('panel/catalogImport', {
+        layout: 'panel',
+        title: 'Настроить обмен товарами',
+        isCatalogImport: true,
+        shop,
+        user,
+        tarif
+    })
+})
 
 
 
