@@ -6,6 +6,8 @@
       event.returnValue= false;
     }
 
+    
+
     function clock() {
       var d = new Date();
       var month_num = d.getMonth()
@@ -219,7 +221,34 @@
       });
     }
 
+    var selectStatus = document.getElementById('js-selectStatus');
+    if(selectStatus != null){
+      selectStatus.addEventListener( "change" , () => {
+        
+        const status = selectStatus.value;
+        const shop_id = document.getElementById('js-shopid').value;
+        const order_id = document.getElementById('js-orderid').value;
+        const csrf = document.getElementById('js-csrf').value;
 
+
+        const request = new XMLHttpRequest();
+        const url = "/panel/change_status";
+        const params = "newstatus=" +status+ "&shop_id=" + shop_id + "&order=" + order_id + "&_csrf=" + csrf;
+
+        request.open("POST", url, true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        request.addEventListener("readystatechange", () => {
+          if(request.readyState === 4 && request.status === 200) {       
+          console.log(request.responseText);
+          }
+        });
+        request.send(params);
+        
+
+        return false;
+      });
+    }
     
     
 })()

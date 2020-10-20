@@ -1,0 +1,78 @@
+<div class="container mb-4" id="page-basket">
+    <h1 class="text-center p-2">{{title}}</h1>
+    {{#if basket}}
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-3"> </div>
+                <div class="col-4"><b>Товар</b></div>
+                <div class="col-2 xs-hide"><b>Количество</b></div>
+                <div class="col-3"><b>Итого</b></div>
+            </div>
+            <hr>
+            {{#each basket}}
+                <div class="row">
+                <div class="col-3">
+                    {{#each ../catalog}}
+                        {{#if_eq ../this.item_id id }}
+                            <img src="{{picture}}" class="img-fluid">
+                        {{/if_eq}}
+                    {{/each}}
+                </div>
+                <div class="col-4">
+                    <a href="/{{../shop.url}}/catalog-detail/{{item_id}}">{{name}}</a>
+                    {{#if properties}}
+                        {{#each properties}}
+                            <div><small>{{@key}}: <b>{{this}}</b></small></div>
+                        {{/each}}
+                    {{/if}}
+                </div>
+                <div class="col-5">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="input-group input-group-count-basket mb-3">
+                                <span class="input-group-text js-minus" data-id="{{id}}">-</span>
+                                <input type="text" class="form-control" id="js-countBasket{{id}}" value="{{count}}">
+                                <span class="input-group-text js-plus" data-id="{{id}}">+</span>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-9">
+                            <b><span class="js-price" id="js-item-basket-{{id}}" data-price="{{price}}" data-count="{{count}}">{{multiply price count}}</span></b>
+                            <br>
+                            <small><span class="js-price">{{price}}</span> за шт.</small>
+                        </div>
+                        <div class="col-md-2 col-2">
+                            <a href="/{{../shop.url}}/delete_basket/{{id}}" class="" data-id="{{id}}">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+                </div>
+                <hr>
+            {{/each}}
+        </div>
+        <div class="col-md-3">
+            <div class="big-card p-sticky mb-4">
+                <div class="mb-3">
+                Итого:<br>
+                <b><span class="js-price" id="js-summ" data-summ="{{summPrice}}"="">{{summPrice}}</span></b>
+                </div>
+                <input type="hidden" name="_csrf" id="js-csrf" value="{{csrf}}">
+                <input type="hidden" name="shop" id="js-shop" value="{{shop.url}}">
+                <a href="/{{shop.url}}/new-order/" class="btn btn-primary btn-lg">Оформить заказ</a>
+            </div>
+        </div>
+    </div>
+    {{else}}
+        <div class="text-center">
+            Ваша корзина пуста
+            <br>
+            <img src="/images/undraw_shopping_app_flsj.svg" style="width: 70%; ">
+        </div>
+    {{/if}}
+</div>

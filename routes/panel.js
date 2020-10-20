@@ -14,12 +14,30 @@ const Tarif = require('../models').Tarif
 const Category = require('../models').Category
 const Catalog = require('../models').Catalog
 const Banner = require('../models').Banner
+const Order = require('../models').Order
+
+
+
+function formatSize(length){
+    var i = 0, type = ['б','Кб','Мб','Гб','Тб','Пб'];
+    while((length / 1000 | 0) && i < type.length - 1) {
+        length /= 1024;
+        i++;
+    }
+    return length.toFixed(2) + ' ' + type[i];
+}
+    
 
 
 router.get('/', auth, async (req, res) => {
     const user = await User.findByPk(req.session.userId)
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
     const tarif = await Tarif.findByPk(user.tarif_id)
+    const orders = await Order.findAll({
+        where: {shop_id: shop.id},
+        order: [['id', 'DESC'],['name', 'ASC']],
+        limit: 10
+    })
 
     res.render('panel/panel', {
         layout: 'panel',
@@ -27,7 +45,8 @@ router.get('/', auth, async (req, res) => {
         isHome: true,
         user,
         shop,
-        tarif
+        tarif,
+        orders
     })
 })
 
@@ -188,14 +207,17 @@ router.get('/catalog/items', auth,  async (req, res) => {
 
     router.get('/catalog/items/delete/:id', auth,  async (req, res) => {
         const id = req.params.id
+        const item = await Catalog.findByPk(id)
+        const picture = item.picture
         Catalog.destroy({
-            where: {
-              id: id,
-              user_id: req.session.userId
-            }
-          }).then((err) => {
+             where: {
+               id: id,
+               user_id: req.session.userId
+             }
+        }).then((err) => {
+            fs.unlinkSync(path.join(__dirname, '..', 'dist', picture))
             return res.redirect('/panel/catalog/items')
-          })
+        })
     })
 
     router.get('/catalog/items/edit/:id', auth,  async (req, res) => {
@@ -279,12 +301,15 @@ router.get('/shop/banners', auth,  async (req, res) => {
 
     router.get('/shop/banners/delete/:id', auth,  async (req, res) => {
         const id = req.params.id
+        const banner = await Banner.findByPk(id)
+        const src = banner.src
         Banner.destroy({
             where: {
                 id: id,
                 user_id: req.session.userId
             }
         }).then((err) => {
+            fs.unlinkSync(path.join(__dirname, '..', 'dist', src))
             return res.redirect('/panel/shop/banners')
         })
     })
@@ -322,7 +347,54 @@ router.get('/catalog/import', auth,  async (req, res) => {
     })
 })
 
+router.get('/orders/', auth, async (req, res) => {
+    const user = await User.findByPk(req.session.userId)
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const orders = await Order.findAll({
+        where: {shop_id: shop.id},
+        order: [['id', 'DESC'],['name', 'ASC']]
+    })
 
+    res.render('panel/orders', {
+        layout: 'panel',
+        title: 'Заказы в магазине '+shop.name,
+        isOrder: true,
+        user,
+        shop,
+        tarif,
+        orders
+    })
+})
+
+router.get('/orders/:id', auth, async (req, res) => {
+    const user = await User.findByPk(req.session.userId)
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const tarif = await Tarif.findByPk(user.tarif_id)
+    const orderDetail = await Order.findOne({
+        where: {shop_id: shop.id, id: req.params.id},
+    })
+
+    var ids = []
+    
+    orderDetail.items.basket.forEach(item  => {
+        ids.push(item.item_id)
+    })
+
+    const catalog = await Catalog.findAll({where: {id: ids}})
+    //console.log(orderDetail);
+
+    res.render('panel/order-detail', {
+        layout: 'panel',
+        title: 'Детальный просмотр заказа #'+req.params.id,
+        isOrder: true,
+        user,
+        shop,
+        tarif,
+        orderDetail,
+        catalog
+    })
+})
 
 
 
@@ -656,6 +728,31 @@ router.post('/shop/banners/edit/:id', auth,  async (req, res) => {
     if(result == 1){
         res.redirect('/panel/shop/banners')
     }
+})
+
+router.post('/change_status', auth,  async (req, res) => {
+    //console.log(req.body);
+    const {newstatus, shop_id, order} =  req.body
+    const orderDetail = await Order.findOne({where: {shop_id: shop_id, id: order}})
+    
+    if(orderDetail != null){
+        var items = {
+            status: newstatus,
+            summ : orderDetail.items.summ,
+            basket: orderDetail.items.basket
+        }
+        const resultStatus = await Order.update(
+            {
+                items: items,
+            },
+            {where: {shop_id: shop_id, id: order}}
+        )
+
+        if(resultStatus){
+            return 1;
+        }
+    }
+    
 })
 
 

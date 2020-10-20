@@ -1,0 +1,71 @@
+                            {{#each orders}}
+
+                            {{#if_eq @key 2}}
+                            <div class="block-style mb-4" data-toggle="modal" data-target="#modal-warning" style="overflow: hidden;">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <div class="order-item-left-block">
+                                            <h4>Важное объявление, пожалуйста, прочитай его. </h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src="/images/undraw_Notify_re_65on.svg" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            {{/if_eq}}
+                            <div class="block-style mb-4">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <div class="order-item-left-block">
+                                            <strong class="mb-2">
+                                                <a href="/panel/orders/{{id}}">
+                                                 Заказ #{{id}}
+                                                </a>
+                                            </strong>
+                                            <div class="desciption">
+                                                Детали заказа:
+                                                <br>
+                                                <span class="badge bg-primary">Доставка: <strong>
+                                                    {{#if_eq delivery 'delivery'}}{{adress}}{{/if_eq}}
+                                                    {{#if_eq delivery 'pickup'}}Самовывоз из магазина{{/if_eq}}
+                                                </strong></span>
+                                                <span class="badge bg-secondary">Оплата: <strong>
+                                                  {{#if_eq pay 'cash'}}Оплата наличными{{/if_eq}}  
+                                                  {{#if_eq pay 'online'}}Оплата картой online{{/if_eq}}  
+                                                  {{#if_eq pay 'pay_after_del'}}Оплата при получении{{/if_eq}}  
+                                                </strong></span>
+                                                <span class="badge bg-warning">Контакт: 
+                                                    {{name}} (<a href="tel:{{phone}}">{{phone}}</a>)
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="order-item-right-block">
+                                            <div class="order-item-right-block__price">
+                                                Сумма заказа<br>
+                                                <span class="js-price">{{items.summ}}</span>
+                                            </div>
+                                            {{#if_eq  items.status 'new'}}
+                                                <span class="badge bg-primary">Принят</span>
+                                            {{/if_eq}}
+                                            {{#if_eq  items.status 'paid'}}
+                                                <span class="badge bg-success">Оплачен</span>
+                                            {{/if_eq}}
+                                            {{#if_eq  items.status 'complete'}}
+                                                <span class="badge bg-success"><svg style="width: 15px; color: #fff; fill: #fff;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-check fa-w-16 fa-2x"><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z" class=""></path></svg>Выполнен </span>
+                                            {{/if_eq}}
+                                            {{#if_eq  items.status 'cancel'}}
+                                                <span class="badge bg-secondary">Отменён</span>
+                                            {{/if_eq}}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{/each}}
+                            
+
+

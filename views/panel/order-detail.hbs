@@ -1,0 +1,103 @@
+<div class="row mb-3">
+    <div class="col-9">
+        <div class="row">
+            <div class="col-2">Статус:</div>
+            <div class="col-4">
+                <select class="form-select form-select-sm" id="js-selectStatus">
+                    <option value="new"{{#if_eq  orderDetail.items.status 'new'}} selected{{/if_eq}}>Принят</option>
+                    <option value="paid"{{#if_eq  orderDetail.items.status 'paid'}} selected{{/if_eq}}>Оплачен</option>
+                    <option value="complete"{{#if_eq  orderDetail.items.status 'complete'}} selected{{/if_eq}}>Выполнен</option>
+                    <option value="cancel"{{#if_eq  orderDetail.items.status 'cancel'}} selected{{/if_eq}}>Отменён</option>
+                </select>
+                <input type="hidden" id="js-shopid" value="{{shop.id}}">
+                <input type="hidden" id="js-orderid" value="{{orderDetail.id}}">
+                <input type="hidden" id="js-csrf" value="{{csrf}}">
+            </div>
+
+        </div>
+        
+        
+    </div>
+    <div class="col-3 text-right"><a href="/panel/orders/">Все заказы</a></div>
+</div>
+
+<div class="block-style p-4">
+    <div><strong>Информация</strong></div>
+    <div class="row">
+        <div class="col-12 col-md-4 mb-3">
+            <small>Имя:</small><br>
+            {{orderDetail.name}}
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <small>Телефон:</small><br>
+            <a href="tel:{{orderDetail.phone}}">{{orderDetail.phone}}</a>
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <small>E-mail:</small><br>
+            <a href="mailto:{{orderDetail.email}}">{{orderDetail.email}}</a>
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <small>Сумма:</small><br>
+            <spam class="js-price">{{orderDetail.items.summ}}</spam>
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <small>Способ оплаты:</small><br>
+            {{#if_eq orderDetail.pay 'cash'}}Оплата наличными{{/if_eq}}  
+            {{#if_eq orderDetail.pay 'online'}}Оплата картой online{{/if_eq}}  
+            {{#if_eq orderDetail.pay 'pay_after_del'}}Оплата при получении{{/if_eq}}  
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <small>Доставка:</small><br>
+            {{#if_eq orderDetail.delivery 'delivery'}}Нужна доставка{{/if_eq}}
+            {{#if_eq orderDetail.delivery 'pickup'}}Самовывоз из магазина{{/if_eq}}
+        </div>
+        {{#if orderDetail.adress}}
+        <div class="col-12">
+            <small>Адрес доставки:</small><br>
+            {{orderDetail.adress}}
+        </div>
+        {{/if}}
+    </div>
+    <hr>
+
+    <div class="row">
+                <div class="col-3"> </div>
+                <div class="col-4"><b>Товар</b></div>
+                <div class="col-2 xs-hide"><b>Количество</b></div>
+                <div class="col-3"><b>Итого</b></div>
+            </div>
+            <hr>
+    {{#each  orderDetail.items.basket}}
+        <div class="row">
+                <div class="col-3">
+                    {{#each ../catalog}}
+                        {{#if_eq ../this.item_id id }}
+                            <img src="{{picture}}" class="img-fluid">
+                        {{/if_eq}}
+                    {{/each}}
+                </div>
+                <div class="col-4">
+                    <a href="/{{../shop.url}}/catalog-detail/{{item_id}}" target="_blank">{{name}}</a>
+                    {{#if properties}}
+                        {{#each properties}}
+                            <div><small>{{@key}}: <b>{{this}}</b></small></div>
+                        {{/each}}
+                    {{/if}}
+                </div>
+                <div class="col-5">
+                    <div class="row">
+                        <div class="col-md-5">
+                            {{count}}
+                        </div>
+                        <div class="col-md-5 col-9">
+                            <b><span class="js-price" id="js-item-basket-{{id}}" data-price="{{price}}" data-count="{{count}}">{{multiply price count}}</span></b>
+                            <br>
+                            <small><span class="js-price">{{price}}</span> за шт.</small>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                </div>
+    {{/each}}
+</div>

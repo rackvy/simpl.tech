@@ -18,11 +18,23 @@
                         <label for="validation-url" class="form-label">Адрес</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon3">https://simpl.tech/</span>
-                            <input type="text" class="form-control{{#if shop.url}} disabled-block{{/if}}" name="url" id="validation-url" value="{{shop.url}}" required>
+                            <input 
+                                type="text" 
+                                class="form-control{{#if shop.url}} disabled-block{{/if}}" 
+                                name="url" 
+                                id="validation-url" 
+                                value="{{shop.url}}" 
+                                onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 45) || (event.charCode >= 97 && event.charCode <= 122)"
+                                required
+                                >
                         </div>
                         {{#if shop.url}}
                         <small class="invalid-feedback" style="display: block;">
                             Данное поле редактировать нельзя.
+                        </small>
+                        {{else}}
+                        <small class="invalid-feedback" style="display: block;">
+                            Допускаются символы: a-z, 0-9 и -.
                         </small>
                         {{/if}}
                     </div>

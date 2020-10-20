@@ -1,0 +1,122 @@
+<div class="container mb-4" id="page-new-order">
+    <h1 class="text-center p-2">{{title}}</h1>
+    <form method="POST" action="" class="js-new-order">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="">
+                        <label for="name" class="form-label"><strong>Представьтесь</strong></label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="">
+                        <label for="email" class="form-label"><strong>E-mail*</strong></label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="">
+                        <label for="phone" class="form-label"><strong>Телефон*</strong></label>
+                        <input type="text" class="form-control" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="col-12"><hr></div>
+                <div class="col-md-4">
+                    <div class="">
+                        <strong class="mb-1 d-block">Оплата*</strong>
+                        {{#each shop.params_del_pay.payment}}
+                            
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pay" id="{{this}}" value="{{this}}" required>
+                                <label class="form-check-label" for="{{this}}">
+                                    {{#if_eq this 'cash'}}Оплата наличными{{/if_eq}}
+                                    {{#if_eq this 'pay_after_del'}}Оплата при получении{{/if_eq}}
+                                    {{#if_eq this 'online'}}Оплата картой online{{/if_eq}}
+                                </label>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="">
+                        <strong class="mb-1 d-block">Доставка*</strong>
+                        {{#each shop.params_del_pay.delivery}}
+                            <div class="form-check">
+                                <input class="form-check-input js-radio-delivery" type="radio" name="delivery" id="{{this}}" value="{{this}}" required>
+                                <label class="form-check-label" for="{{this}}">
+                                    {{#if_eq this 'delivery'}}Дотсавка{{/if_eq}}
+                                    {{#if_eq this 'pickup'}}Самовывоз из магазина{{/if_eq}}
+                                </label>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="" id="js-adress" style="display: none;">
+                        <label for="adress" class="form-label"><strong>Адрес доставки*</strong></label>
+                        <textarea class="form-control" id="adress" name="adress"></textarea>
+                    </div>
+                </div>
+                <div class="col-12"><hr></div>
+                <div class="col-md-12">
+                    <div class="">
+                        <label for="comment" class="form-label"><strong>Комментарий</strong></label>
+                        <textarea class="form-control" id="comment" name="comment"></textarea>
+                    </div>
+                </div>
+                <div class="col-12"><hr></div>
+            </div>
+            <h4 class="mb-3">Список товаров</h4>
+
+            <div class="row">
+                <div class="col-2"> </div>
+                <div class="col-4"><b>Товар</b></div>
+                <div class="col-2 xs-hide"><b>Количество</b></div>
+                <div class="col-4"><b>Итого</b></div>
+            </div>
+            <hr>
+            {{#each basket}}
+                <div class="row">
+                <div class="col-2">
+                    {{#each ../catalog}}
+                        {{#if_eq ../this.item_id id }}
+                            <img src="{{picture}}" class="img-fluid">
+                        {{/if_eq}}
+                    {{/each}}
+                </div>
+                <div class="col-4">
+                    <a href="/{{../shop.url}}/catalog-detail/{{item_id}}">{{name}}</a>
+                    {{#if properties}}
+                        {{#each properties}}
+                            <div><small>{{@key}}: <b>{{this}}</b></small></div>
+                        {{/each}}
+                    {{/if}}
+                </div>
+                <div class="col-2">
+                    {{count}} шт.
+                </div>
+                <div class="col-4">
+                    <b><span class="js-price" id="js-item-basket-{{id}}" data-price="{{price}}" data-count="{{count}}">{{multiply price count}}</span></b>
+                    <br>
+                    <small><span class="js-price">{{price}}</span> за шт.</small>
+                </div>            
+                </div>
+                <hr>
+            {{/each}}
+        </div>
+        <div class="col-md-3">
+            <div class="big-card p-sticky mb-4">
+                <div class="mb-3">
+                Итого:<br>
+                <b><span class="js-price" id="js-summ" data-summ="{{summPrice}}"="">{{summPrice}}</span></b>
+                </div>
+                <input type="hidden" name="_csrf" id="js-csrf" value="{{csrf}}">
+                <input type="hidden" name="shop" id="js-shop" value="{{shop.url}}">
+                <button type="submit" class="btn btn-primary btn-lg">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>

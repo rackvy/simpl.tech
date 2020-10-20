@@ -338,5 +338,14 @@ ul:not([class]){
     .quote{
         padding: 100px 50px 30px 50px;
     }
+    .contacts-page {
+        padding-top: 50px;
+        background-image: url("/images/contact_us_4x.jpg");
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        margin-bottom: -60px;
+        padding-bottom: 650px;
+        background-size: contain;
+    }
 }
 

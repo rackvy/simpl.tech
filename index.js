@@ -37,6 +37,9 @@ const hbs = exphbs.create({
         },
         encodeMyString: function(inputData){
             return new Handlebars.SafeString(inputData)
+        },
+        multiply: function(a, b){
+            return Number(a) * Number(b)
         }
     }
 })
