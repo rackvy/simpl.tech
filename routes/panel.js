@@ -33,11 +33,15 @@ router.get('/', auth, async (req, res) => {
     const user = await User.findByPk(req.session.userId)
     const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
     const tarif = await Tarif.findByPk(user.tarif_id)
-    const orders = await Order.findAll({
-        where: {shop_id: shop.id},
-        order: [['id', 'DESC'],['name', 'ASC']],
-        limit: 10
-    })
+    if(shop != null){
+        var orders = await Order.findAll({
+            where: {shop_id: shop.id},
+            order: [['id', 'DESC'],['name', 'ASC']],
+            limit: 10
+        })    
+    }else{
+        var orders
+    }
 
     res.render('panel/panel', {
         layout: 'panel',
@@ -111,7 +115,7 @@ router.get('/shop/texts', auth,  async (req, res) => {
 
     res.render('panel/shoptexts', {
         layout: 'panel',
-        title: 'Текста о доставке и об оплате',
+        title: 'Тексты о доставки и об оплате',
         isShopTexts: true,
         shop,
         user,
@@ -395,6 +399,52 @@ router.get('/orders/:id', auth, async (req, res) => {
         catalog
     })
 })
+
+router.get('/pay', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+
+    res.render('panel/noready', {
+        layout: 'panel',
+        title: 'Оплата Online',
+        shop,
+        user,
+        tarif
+    })
+})
+
+router.get('/booking', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+
+    res.render('panel/noready', {
+        layout: 'panel',
+        title: 'Бронирование столов',
+        shop,
+        user,
+        tarif
+    })
+})
+
+router.get('/pages', auth,  async (req, res) => {
+    const shop = await Shop.findOne({where:{user_id: req.session.userId}, raw: true})
+    const user = await User.findByPk(req.session.userId)
+    const tarif = await Tarif.findByPk(user.tarif_id)
+
+    res.render('panel/noready', {
+        layout: 'panel',
+        title: 'Собственные страницы',
+        shop,
+        user,
+        tarif
+    })
+})
+
+
+
+
 
 
 

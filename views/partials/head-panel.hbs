@@ -35,7 +35,7 @@
                             <ul class="sub-menu">
                                 <li><a {{#if isBanners}}class="active"{{/if}} href="/panel/shop/banners">Баннеры</a></li>
                                 <li><a {{#if isShopAdress}}class="active"{{/if}} href="/panel/shop/adress">Адреса магазинов</a></li>
-                                <li><a {{#if isShopTexts}}class="active"{{/if}} href="/panel/shop/texts">Текста на старнице</a></li>
+                                <li><a {{#if isShopTexts}}class="active"{{/if}} href="/panel/shop/texts">Тексты о доставки и об оплате</a></li>
                             </ul>
 
                                 
@@ -44,8 +44,8 @@
                                 <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="box-full" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-box-full fa-w-20 fa-2x"><path fill="currentColor" d="M638.3 239.8L586.8 137c-2.8-5.6-8.5-9-14.6-9-1 0 4.3-.7-56.3 7l26.2-71.8c6-16.6-2.5-35-19.1-41L467.3 1.9c-16.5-6-34.9 2.5-41 19.1l-42.8 117.7C380.7 61.7 317.7 0 240 0 164.7 0 103.7 58 97.3 131.6 67.8 127.8 69 128 67.8 128c-6.1 0-11.8 3.5-14.6 9L1.7 239.8c-4.6 9.2.3 20.2 10.1 23L64 277.7V425c0 14.7 10 27.5 24.2 31l216.2 54.1c13.6 3.4 25 1.5 31 0L551.8 456c14.2-3.6 24.2-16.4 24.2-31V277.7l52.1-14.9c9.9-2.8 14.7-13.8 10.2-23zM456.4 32L512 52.2l-31.8 87.3-66 8.4L456.4 32zM38.8 237.3l38-76 190.4 24.3-60.1 99.8-168.3-48.1zM304 477L96 425V286.9C219.3 322.1 211 320 214.3 320c5.6 0 11-2.9 14-7.9L304 186.5V477zm16-317c-95.7-12.2-154.6-19.7-191.1-24.4C133.2 77.8 181.1 32 240 32c61.8 0 112 50.2 112 112 0 4.1-.6 8.1-1.1 12.1L320 160zm224 265l-208 52V186.5L411.7 312c3 5 8.4 7.9 14 7.9 3.3 0-5.2 2.1 118.3-33.1V425zM432.9 285.3l-60.1-99.8 190.4-24.3 38 76-168.3 48.1z" class=""></path></svg>
                                 Каталог</a>
                             <ul class="sub-menu">
-                                <li><a {{#if isCatalogItem}}class="active"{{/if}} href="/panel/catalog/items/">Товары</a></li>
                                 <li><a {{#if isCatalogCats}}class="active"{{/if}} href="/panel/catalog/categorys/">Категории</a></li>
+                                <li><a {{#if isCatalogItem}}class="active"{{/if}} href="/panel/catalog/items/">Товары</a></li>
                                 <li><a {{#if isCatalogImport}}class="active"{{/if}} href="/panel/catalog/import/">Выгрузка товаров</a></li>
                             </ul>
                         </li>
@@ -55,10 +55,10 @@
                         <li><a href="/panel/pay/" class="disabled">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="money-bill" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M320 144c-53 0-96 50.1-96 112 0 61.8 43 112 96 112s96-50.1 96-112-43-112-96-112zm0 192c-35.3 0-64-35.9-64-80s28.7-80 64-80 64 35.9 64 80-28.7 80-64 80zM608 64H32C14.3 64 0 78.3 0 96v320c0 17.7 14.3 32 32 32h576c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zM32 96h64c0 35.3-28.7 64-64 64V96zm0 320v-64c35.3 0 64 28.7 64 64H32zm576 0h-64c0-35.3 28.7-64 64-64v64zm0-96c-52.9 0-96 43.1-96 96H128c0-52.9-43.1-96-96-96V192c52.9 0 96-43.1 96-96h384c0 52.9 43.1 96 96 96v128zm0-160c-35.3 0-64-28.7-64-64h64v64z" class=""></path></svg>
                                 Оплата Online</a></li>
-                        <li><a href="#">
+                        <li><a href="/panel/booking/">
                             Бронирование столов
                         </a></li>
-                        <li><a href="#">
+                        <li><a href="/panel/pages/">
                             Собственные страницы
                         </a></li>
                     </ul>

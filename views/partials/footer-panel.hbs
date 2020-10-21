@@ -20,11 +20,17 @@
                                   <div class="mb-3">
                                     Тариф: <strong>{{tarif.name}} <small>({{tarif.description}})</small></strong>
                                   </div>
+                                  {{#if shop.url}}
+                                  <div class="mb-2">
+                                    Адрес вашего магазина:<br>
+                                    <a href="https://simpl.tech/{{shop.url}}" target="_blank">https://simpl.tech/{{shop.url}}</a>
+                                  </div>
                                   <div class="mb-3">
                                     <h6>Ваш QR код</h6>
                                     <input type="hidden" value="https://simpl.tech/{{shop.url}}" id="js-url">
                                     <div id="js-qrcode" class="qrcode"></div>
                                   </div>
+                                  {{/if}}
                                   <div class="mb-3">
                                     <h6>Список задач</h6>
                                     <ul>
@@ -33,10 +39,10 @@
                                       {{#if shop.params_del_pay}}{{else}}<li><a href="/panel/shop/">Выбрать способ доставки и оплаты</a></li>{{/if}}
                                     </ul>
                                   </div>
-                                  <div class="mb-3">
+                                  {{!-- <div class="mb-3">
                                     <h6>Последние события</h6>
                                     Событий нет
-                                  </div>
+                                  </div> --}}
                                   
                                 </div>
                             </div>

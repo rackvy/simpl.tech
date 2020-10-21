@@ -1,0 +1,85 @@
+<h2>Данный сервис находится в разработке</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="block-style p-4" style="height: 440px;">
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <img src="/images/undraw_working_late_pukg.svg" class="img-fluid">
+                </div>
+            </div>
+            <div class="gears">
+				<img src="https://slim.technology/images/gears/gear.png">
+				<img src="https://slim.technology/images/gears/gear2.png">
+				<img src="https://slim.technology/images/gears/gear3.png">
+				<img src="https://slim.technology/images/gears/gear4.png">
+				<img src="https://slim.technology/images/gears/gear5.png">
+				<img src="https://slim.technology/images/gears/gear6.png">
+				<img src="https://slim.technology/images/gears/gear7.png">
+			</div>
+        </div>
+    </div>
+</div>
+<style>
+.gears {
+  width: 50vw;
+  position: relative;
+}
+.gears img {
+  position: absolute;
+  animation: rotateGear 2s infinite linear;
+}
+.gears img:first-child {
+  top: 37%;
+  left: 10vw;
+  width: 9vw;
+}
+.gears img:nth-child(2) {
+  top: 21%;
+  left: 18vw;
+  width: 4vw;
+}
+.gears img:nth-child(3) {
+  top: 38%;
+  left: 20vw;
+  width: 4vw;
+  animation: rotateGearBackwords 2s infinite linear;
+}
+.gears img:nth-child(4) {
+  top: 56%;
+  left: 19vw;
+  width: 7vw;
+}
+.gears img:nth-child(5) {
+  top: 36%;
+  left: 24vw;
+  width: 6vw;
+}
+.gears img:nth-child(6) {
+  top: 60%;
+  left: 28vw;
+  width: 7vw;
+  animation: rotateGearBackwords 6s infinite linear;
+}
+.gears img:nth-child(7) {
+  top: 20%;
+  left: 30vw;
+  width: 9vw;
+  animation: rotateGearBackwords 6s infinite linear;
+}
+@keyframes rotateGear {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes rotateGearBackwords {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(-360deg);
+  }
+}
+</style>

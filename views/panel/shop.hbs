@@ -15,7 +15,7 @@
                         <input type="text" class="form-control" name="name" id="validation-email" value="{{shop.name}}" required>
                     </div>
                     <div class="col-md-12 mb-2">
-                        <label for="validation-url" class="form-label">Адрес</label>
+                        <label for="validation-url" class="form-label">Адрес{{#if shop.url}} (<a href="https://simpl.tech/{{shop.url}}" target="_blank">https://simpl.tech/{{shop.url}}</a>){{/if}}</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon3">https://simpl.tech/</span>
                             <input 

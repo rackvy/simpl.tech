@@ -54,7 +54,7 @@ router.post('/register', async function(req, res) {
             message: 'Email адрес введен не корректно.'
         })
     }
-    const email = req.body.email
+    const email = req.body.email.toLowerCase()
     const password = req.body.password
     const candidate = await User.findOne({where:{email: email}, raw: true})
     if(candidate === null){
@@ -64,7 +64,7 @@ router.post('/register', async function(req, res) {
         const user = new User({
             name: req.body.name,
             phone: req.body.phone,
-            email: req.body.email,
+            email: req.body.email.toLowerCase(),
             role: "user",
             password: hashPassword,
             salt: salt,
